@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    /* Tailor Management System Color Palette (DESIGN.md) */
+    --color-ivory: #F7F4EE;
+    --color-surface: #FFFFFF;
+    --color-charcoal: #29302D;
+    --color-dark-olive: #38443D;
+    --color-warm-taupe: #9A816B;
+    --color-warm-brown: #A8754F;
+    --color-beige: #E7DED2;
+    --color-soft-green: #6F8A78;
+    --color-warm-amber: #C49A52;
+    --color-muted-red: #B86B67;
+
+    --color-terracotta: #B9654A;
+    --color-dusty-blue: #71879A;
+    --color-dusty-rose: #B58B86;
+
+    --font-heading: 'Plus Jakarta Sans', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Motion Tokens */
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tailoring Stitching Accents */
+.border-stitching {
+    border-style: dashed;
+    border-width: 1.5px;
+}
+
+.border-stitching-dotted {
+    border-style: dotted;
+    border-width: 2px;
+}
+
+.stitching-line {
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--color-warm-brown) 0,
+        var(--color-warm-brown) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+    height: 1.5px;
+}
+
+[x-cloak] {
+    display: none !important;
+}
