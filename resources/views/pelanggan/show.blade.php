@@ -81,8 +81,59 @@
             @endif
         </div>
 
-        {{-- Kolom Kanan: Riwayat Pesanan --}}
-        <div class="lg:col-span-3">
+        {{-- Kolom Kanan: Data Ukuran & Riwayat Pesanan --}}
+        <div class="lg:col-span-3 space-y-6">
+            {{-- Section Riwayat Ukuran Tubuh --}}
+            <div class="bg-white rounded-2xl border border-[#E7DED2] overflow-hidden">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-[#E7DED2]">
+                    <h3 class="font-heading font-semibold text-[#29302D]">Ukuran Tubuh Pelanggan</h3>
+                    <a href="{{ route('pengukuran.create', ['pelanggan_id' => $pelanggan->id]) }}"
+                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#29302D] hover:bg-[#38443D] text-white text-xs font-semibold transition-all">
+                        <svg class="w-3.5 h-3.5 text-[#C49A52]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Ukur Baru
+                    </a>
+                </div>
+
+                @if($pelanggan->pengukuran->isEmpty())
+                    <div class="py-8 text-center">
+                        <p class="text-xs text-[#9A816B]">Belum ada catatan ukuran tubuh untuk pelanggan ini.</p>
+                    </div>
+                @else
+                    <div class="divide-y divide-[#E7DED2]">
+                        @foreach($pelanggan->pengukuran as $ukur)
+                            <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#F7F4EE]/50 transition-colors">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <p class="font-semibold text-xs text-[#29302D]">Tanggal Ukur: {{ $ukur->tanggal_ukur->format('d M Y') }}</p>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5 mt-2 text-[11px]">
+                                        @foreach(array_slice($ukur->data_ukuran ?? [], 0, 4, true) as $k => $v)
+                                            <span class="px-2 py-0.5 rounded-md bg-[#F7F4EE] border border-[#E7DED2] text-[#38443D]">
+                                                {{ ucfirst(str_replace('_', ' ', $k)) }}: {{ $v }} cm
+                                            </span>
+                                        @endforeach
+                                        @if(count($ukur->data_ukuran ?? []) > 4)
+                                            <span class="px-2 py-0.5 rounded-md bg-white border border-[#E7DED2] text-[#9A816B]">
+                                                +{{ count($ukur->data_ukuran) - 4 }} ukuran lainnya
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <a href="{{ route('pengukuran.show', $ukur) }}"
+                                       class="px-3 py-1.5 rounded-lg border border-[#E7DED2] text-xs font-semibold text-[#38443D] hover:bg-[#F7F4EE] transition-colors">
+                                        Detail Ukuran
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+
+            {{-- Riwayat Pesanan --}}
             <div class="bg-white rounded-2xl border border-[#E7DED2] overflow-hidden">
                 <div class="flex items-center justify-between px-6 py-4 border-b border-[#E7DED2]">
                     <h3 class="font-heading font-semibold text-[#29302D]">Riwayat Pesanan</h3>

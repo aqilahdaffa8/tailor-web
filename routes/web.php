@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PengaturanController;
+use App\Http\Controllers\PengukuranController;
 use App\Http\Controllers\PolaController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,5 +68,22 @@ Route::middleware('auth')->group(function () {
         Route::delete('/detail/{polaDetail}', [PolaController::class, 'destroyDetail'])->name('detail.destroy');
         Route::delete('/detail/{polaDetail}/foto', [PolaController::class, 'deleteFoto'])->name('detail.delete-foto');
         Route::delete('/detail/{polaDetail}/file', [PolaController::class, 'deleteFile'])->name('detail.delete-file');
+    });
+
+    // Pengukuran Pelanggan
+    Route::resource('pengukuran', PengukuranController::class);
+
+    // Inventory (Bahan & Peralatan)
+    Route::prefix('inventory')->name('inventory.')->group(function () {
+        Route::get('/', [InventoryController::class, 'index'])->name('index');
+        Route::post('/bahan', [InventoryController::class, 'storeBahan'])->name('bahan.store');
+        Route::put('/bahan/{bahan}', [InventoryController::class, 'updateBahan'])->name('bahan.update');
+        Route::delete('/bahan/{bahan}', [InventoryController::class, 'destroyBahan'])->name('bahan.destroy');
+        Route::post('/bahan/{bahan}/stok-masuk', [InventoryController::class, 'stokMasuk'])->name('bahan.stok-masuk');
+        Route::get('/bahan/{bahan}/riwayat', [InventoryController::class, 'riwayatBahan'])->name('bahan.riwayat');
+
+        Route::post('/peralatan', [InventoryController::class, 'storePeralatan'])->name('peralatan.store');
+        Route::put('/peralatan/{peralatan}', [InventoryController::class, 'updatePeralatan'])->name('peralatan.update');
+        Route::delete('/peralatan/{peralatan}', [InventoryController::class, 'destroyPeralatan'])->name('peralatan.destroy');
     });
 });

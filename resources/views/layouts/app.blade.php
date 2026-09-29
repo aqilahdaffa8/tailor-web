@@ -73,8 +73,8 @@
                 </a>
 
                 <!-- Pengukuran -->
-                <a href="#" 
-                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50 transition-all">
+                <a href="{{ route('pengukuran.index') }}" 
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('pengukuran.*') ? 'bg-[#38443D] text-[#C49A52] shadow-xs' : 'text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                     </svg>
@@ -82,8 +82,8 @@
                 </a>
 
                 <!-- Inventory -->
-                <a href="#" 
-                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50 transition-all">
+                <a href="{{ route('inventory.index') }}" 
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('inventory.*') ? 'bg-[#38443D] text-[#C49A52] shadow-xs' : 'text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                     </svg>
