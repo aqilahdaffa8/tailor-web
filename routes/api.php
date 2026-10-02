@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\PelangganController;
 use App\Http\Controllers\Api\PengaturanController;
 use App\Http\Controllers\Api\PengukuranController;
+use App\Http\Controllers\Api\PesananController;
+use App\Http\Controllers\Api\PesananItemController;
 use App\Http\Controllers\Api\PolaController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,23 @@ Route::middleware('auth:sanctum')->group(function () {
         'show' => 'api.pelanggan.show',
         'update' => 'api.pelanggan.update',
         'destroy' => 'api.pelanggan.destroy',
+    ]);
+
+    // Pesanan Jahit
+    Route::post('pesanan/{pesanan}/item', [PesananItemController::class, 'store'])->name('api.pesanan.item.store');
+    Route::put('pesanan/item/{item}', [PesananItemController::class, 'update'])->name('api.pesanan.item.update');
+    Route::delete('pesanan/item/{item}', [PesananItemController::class, 'destroy'])->name('api.pesanan.item.destroy');
+    Route::put('pesanan/item/{item}/progress', [PesananItemController::class, 'progress'])->name('api.pesanan.item.progress');
+    Route::post('pesanan/item/{item}/bahan', [PesananItemController::class, 'storeBahan'])->name('api.pesanan.item.bahan.store');
+    Route::delete('pesanan/pemakaian/{pemakaian}', [PesananItemController::class, 'destroyBahan'])->name('api.pesanan.pemakaian.destroy');
+    Route::post('pesanan/item/{item}/foto', [PesananItemController::class, 'storeFoto'])->name('api.pesanan.item.foto.store');
+    Route::delete('pesanan/foto/{foto}', [PesananItemController::class, 'destroyFoto'])->name('api.pesanan.foto.destroy');
+    Route::apiResource('pesanan', PesananController::class)->names([
+        'index' => 'api.pesanan.index',
+        'store' => 'api.pesanan.store',
+        'show' => 'api.pesanan.show',
+        'update' => 'api.pesanan.update',
+        'destroy' => 'api.pesanan.destroy',
     ]);
 
     // Library Pola

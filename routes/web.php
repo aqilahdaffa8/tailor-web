@@ -5,6 +5,8 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengukuranController;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\PesananItemController;
 use App\Http\Controllers\PolaController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +55,19 @@ Route::middleware('auth')->group(function () {
 
     // Pelanggan
     Route::resource('pelanggan', PelangganController::class);
+
+    // Pesanan Jahit
+    Route::prefix('pesanan')->name('pesanan.')->group(function () {
+        Route::post('/{pesanan}/item', [PesananItemController::class, 'store'])->name('item.store');
+        Route::put('/item/{item}', [PesananItemController::class, 'update'])->name('item.update');
+        Route::delete('/item/{item}', [PesananItemController::class, 'destroy'])->name('item.destroy');
+        Route::put('/item/{item}/progress', [PesananItemController::class, 'progress'])->name('item.progress');
+        Route::post('/item/{item}/bahan', [PesananItemController::class, 'storeBahan'])->name('item.bahan.store');
+        Route::delete('/pemakaian/{pemakaian}', [PesananItemController::class, 'destroyBahan'])->name('pemakaian.destroy');
+        Route::post('/item/{item}/foto', [PesananItemController::class, 'storeFoto'])->name('item.foto.store');
+        Route::delete('/foto/{foto}', [PesananItemController::class, 'destroyFoto'])->name('foto.destroy');
+    });
+    Route::resource('pesanan', PesananController::class);
 
     // Library Pola
     Route::prefix('pola')->name('pola.')->group(function () {

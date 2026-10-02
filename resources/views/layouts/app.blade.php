@@ -55,8 +55,8 @@
                 </a>
 
                 <!-- Pesanan Jahit -->
-                <a href="#" 
-                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50 transition-all">
+                <a href="{{ route('pesanan.index') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all {{ request()->routeIs('pesanan.*') ? 'bg-[#38443D] text-[#C49A52] shadow-xs' : 'text-[#E7DED2]/80 hover:text-white hover:bg-[#38443D]/50' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                     </svg>
@@ -185,6 +185,28 @@
                             </div>
                             <span class="font-medium">{{ session('success') }}</span>
                         </div>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="mb-6 rounded-2xl bg-[#B86B67]/10 p-4 border border-[#B86B67]/40 text-sm text-[#29302D] flex items-center gap-3 shadow-2xs">
+                        <div class="w-8 h-8 rounded-full bg-[#B86B67] text-white flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <span class="font-medium">{{ session('error') }}</span>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="mb-6 rounded-2xl bg-[#B86B67]/10 p-4 border border-[#B86B67]/40 text-sm text-[#29302D] shadow-2xs">
+                        <p class="font-heading font-semibold text-[#B86B67] mb-1.5">Data belum dapat disimpan:</p>
+                        <ul class="list-disc pl-5 space-y-0.5 text-xs">
+                            @foreach ($errors->all() as $pesanError)
+                                <li>{{ $pesanError }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endif
 

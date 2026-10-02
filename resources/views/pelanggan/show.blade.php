@@ -137,6 +137,13 @@
             <div class="bg-white rounded-2xl border border-[#E7DED2] overflow-hidden">
                 <div class="flex items-center justify-between px-6 py-4 border-b border-[#E7DED2]">
                     <h3 class="font-heading font-semibold text-[#29302D]">Riwayat Pesanan</h3>
+                    <a href="{{ route('pesanan.create', ['pelanggan_id' => $pelanggan->id]) }}"
+                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#29302D] hover:bg-[#38443D] text-white text-xs font-semibold transition-all">
+                        <svg class="w-3.5 h-3.5 text-[#C49A52]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Pesanan Baru
+                    </a>
                 </div>
 
                 @if($pelanggan->pesanan->isEmpty())
@@ -148,7 +155,7 @@
                         @foreach($pelanggan->pesanan as $pesanan)
                             <div class="px-6 py-4 flex items-center justify-between gap-4 hover:bg-[#F7F4EE]/50 transition-colors">
                                 <div>
-                                    <p class="font-medium text-sm text-[#29302D]">{{ $pesanan->no_pesanan }}</p>
+                                    <a href="{{ route('pesanan.show', $pesanan) }}" class="font-medium text-sm text-[#29302D] hover:text-[#A8754F] transition-colors">{{ $pesanan->nomor_pesanan }}</a>
                                     <p class="text-xs text-[#9A816B] mt-0.5">
                                         {{ $pesanan->item_pesanan_count ?? 0 }} item
                                         &middot; {{ $pesanan->created_at->format('d M Y') }}
@@ -157,15 +164,15 @@
                                 <div class="flex items-center gap-3 shrink-0">
                                     @php
                                         $statusColors = [
-                                            'Baru'    => 'bg-[#C49A52]/15 text-[#A8754F]',
-                                            'Proses'  => 'bg-[#6F8A78]/15 text-[#6F8A78]',
-                                            'Selesai' => 'bg-[#38443D]/10 text-[#38443D]',
-                                            'Batal'   => 'bg-[#B86B67]/15 text-[#B86B67]',
+                                            'aktif'      => 'bg-[#C49A52]/15 text-[#A8754F]',
+                                            'selesai'    => 'bg-[#6F8A78]/15 text-[#6F8A78]',
+                                            'diambil'    => 'bg-[#38443D]/10 text-[#38443D]',
+                                            'dibatalkan' => 'bg-[#B86B67]/15 text-[#B86B67]',
                                         ];
                                         $colorClass = $statusColors[$pesanan->status] ?? 'bg-[#F7F4EE] text-[#9A816B]';
                                     @endphp
                                     <span class="px-2.5 py-1 rounded-full text-xs font-semibold {{ $colorClass }}">
-                                        {{ $pesanan->status }}
+                                        {{ ucfirst($pesanan->status) }}
                                     </span>
                                     <span class="text-sm font-heading font-semibold text-[#A8754F]">
                                         Rp {{ number_format($pesanan->total_harga, 0, ',', '.') }}
