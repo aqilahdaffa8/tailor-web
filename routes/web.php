@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\PengukuranController;
 use App\Http\Controllers\PesananController;
@@ -59,6 +60,9 @@ Route::middleware('auth')->group(function () {
     // Pesanan Jahit
     Route::prefix('pesanan')->name('pesanan.')->group(function () {
         Route::post('/{pesanan}/item', [PesananItemController::class, 'store'])->name('item.store');
+        Route::post('/{pesanan}/pembayaran', [PembayaranController::class, 'store'])->name('pembayaran.store');
+        Route::get('/{pesanan}/invoice', [PembayaranController::class, 'invoice'])->name('invoice');
+        Route::get('/{pesanan}/invoice/pdf', [PembayaranController::class, 'invoicePdf'])->name('invoice.pdf');
         Route::put('/item/{item}', [PesananItemController::class, 'update'])->name('item.update');
         Route::delete('/item/{item}', [PesananItemController::class, 'destroy'])->name('item.destroy');
         Route::put('/item/{item}/progress', [PesananItemController::class, 'progress'])->name('item.progress');
@@ -68,6 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/foto/{foto}', [PesananItemController::class, 'destroyFoto'])->name('foto.destroy');
     });
     Route::resource('pesanan', PesananController::class);
+    Route::delete('pembayaran/{pembayaran}', [PembayaranController::class, 'destroy'])->name('pembayaran.destroy');
 
     // Library Pola
     Route::prefix('pola')->name('pola.')->group(function () {

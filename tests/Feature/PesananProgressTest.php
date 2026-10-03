@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\FotoReferensi;
 use App\Models\PemakaianBahan;
+use App\Models\Pembayaran;
 use App\Models\RiwayatStok;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -104,6 +105,14 @@ class PesananProgressTest extends PesananTestCase
         $this->assertSame('selesai', $item->fresh()->status_item);
         $this->assertSame('selesai', $pesanan->fresh()->status);
         $this->assertSame('selesai', $response->json('data.status_pesanan'));
+
+        // Pesanan harus lunas sebelum tahap pengambilan barang dapat diselesaikan.
+        Pembayaran::create([
+            'pesanan_id' => $pesanan->id,
+            'jumlah' => 100000,
+            'metode' => 'tunai',
+            'tanggal_bayar' => now(),
+        ]);
 
         // Majukan sampai seluruh tahapan tuntas -> diambil.
         for ($i = $urutanSelesai + 1; $i < $total; $i++) {

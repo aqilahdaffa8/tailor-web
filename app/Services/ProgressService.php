@@ -11,6 +11,8 @@ use Illuminate\Validation\ValidationException;
 
 class ProgressService
 {
+    public function __construct(private readonly PembayaranService $pembayaranService) {}
+
     /**
      * Ambil tahapan yang sedang dikerjakan: tahapan pertama yang belum selesai,
      * atau tahapan terakhir jika seluruh tahapan sudah selesai.
@@ -48,6 +50,8 @@ class ProgressService
                     'aksi' => 'Semua tahapan pada item ini sudah selesai.',
                 ]);
             }
+
+            $this->pastikanLunasSebelumDiambil($berikutnya, $item->pesanan);
 
             $berikutnya->update([
                 'is_completed' => true,
@@ -159,6 +163,25 @@ class ProgressService
             || $tuntas->contains(fn (ProgressItem $tahap) => strcasecmp($tahap->nama_tahapan, 'Selesai') === 0);
 
         return $sudahSelesai ? 'selesai' : 'diproses';
+    }
+
+    /**
+     * Alur "Selesai -> Cek Sisa -> Bayar -> Diambil": tahap pengambilan barang
+     * hanya boleh diselesaikan bila pesanan sudah lunas.
+     */
+    private function pastikanLunasSebelumDiambil(ProgressItem $tahap, Pesanan $pesanan): void
+    {
+        if (! str_contains(strtolower($tahap->nama_tahapan), 'diambil')) {
+            return;
+        }
+
+        $sisa = $this->pembayaranService->hitungSisa($pesanan);
+
+        if ($sisa > 0) {
+            throw ValidationException::withMessages([
+                'aksi' => 'Pesanan belum lunas (sisa Rp '.number_format($sisa, 0, ',', '.').'). Lunasi pembayaran sebelum menandai barang sudah diambil.',
+            ]);
+        }
     }
 
     private function pastikanPesananAktif(ItemPesanan $item): void

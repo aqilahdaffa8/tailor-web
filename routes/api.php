@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\JenisJasaController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\PelangganController;
+use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\PengaturanController;
 use App\Http\Controllers\Api\PengukuranController;
 use App\Http\Controllers\Api\PesananController;
@@ -57,6 +58,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Pesanan Jahit
     Route::post('pesanan/{pesanan}/item', [PesananItemController::class, 'store'])->name('api.pesanan.item.store');
+    Route::get('pesanan/{pesanan}/pembayaran', [PembayaranController::class, 'index'])->name('api.pesanan.pembayaran.index');
+    Route::post('pesanan/{pesanan}/pembayaran', [PembayaranController::class, 'store'])->name('api.pesanan.pembayaran.store');
+    Route::get('pesanan/{pesanan}/invoice', [PembayaranController::class, 'invoice'])->name('api.pesanan.invoice');
+    Route::get('pesanan/{pesanan}/invoice/pdf', [PembayaranController::class, 'invoicePdf'])->name('api.pesanan.invoice.pdf');
+    Route::delete('pembayaran/{pembayaran}', [PembayaranController::class, 'destroy'])->name('api.pembayaran.destroy');
     Route::put('pesanan/item/{item}', [PesananItemController::class, 'update'])->name('api.pesanan.item.update');
     Route::delete('pesanan/item/{item}', [PesananItemController::class, 'destroy'])->name('api.pesanan.item.destroy');
     Route::put('pesanan/item/{item}/progress', [PesananItemController::class, 'progress'])->name('api.pesanan.item.progress');

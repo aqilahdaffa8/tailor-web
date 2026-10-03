@@ -37,6 +37,7 @@ abstract class PesananFormRequest extends FormRequest
             'image' => ':attribute harus berupa gambar.',
             'mimes' => ':attribute harus berformat: :values.',
             'after_or_equal' => ':attribute tidak boleh lebih awal dari :date.',
+            'before_or_equal' => ':attribute tidak boleh lebih dari :date.',
             'min' => [
                 'numeric' => ':attribute minimal :min.',
                 'string' => ':attribute minimal :min karakter.',
@@ -79,6 +80,8 @@ abstract class PesananFormRequest extends FormRequest
             'detail_pekerjaan' => 'Detail pekerjaan',
             'dp' => 'Nominal DP',
             'metode_dp' => 'Metode pembayaran DP',
+            'metode' => 'Metode pembayaran',
+            'tanggal_bayar' => 'Tanggal bayar',
             'aksi' => 'Aksi progress',
             'bahan_id' => 'Bahan',
             'jumlah' => 'Jumlah',
