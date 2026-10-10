@@ -341,7 +341,7 @@ POST   /api/pesanan/item/{id}/foto          → upload foto referensi
 - **Edit pesanan**: edit header, tambah/hapus item
 
 ### Deliverable Tahap 8
-- [x] Pembuatan pesanan (header + items + progress copy) berjalan atomic
+- [x] Pembuatan pesanan berjalan atomic untuk header + item pertama + progress (via `sp_buat_pesanan`); item tambahan & DP dicatat setelahnya dalam transaksi terpisah dengan kompensasi (hapus pesanan bila gagal)
 - [x] Progress per item bisa dimajukan/dimundurkan
 - [x] Pemakaian bahan terhubung ke stok (trigger aktif)
 - [x] Filter & search pesanan
@@ -413,7 +413,7 @@ GET    /api/dashboard/stok-menipis           → bahan yang menipis
 - Card widget: pendapatan vs pengeluaran bulan ini
 - Card widget: stok bahan menipis
 - Shortcut link ke modul terkait
-- Auto-refresh via Livewire polling
+- Auto-refresh (diimplementasikan via AJAX + Alpine, mengambil partial `dashboard._widget`; Livewire belum dipakai)
 
 ### Deliverable Tahap 10
 - [x] Semua widget dashboard menampilkan data real
@@ -447,10 +447,10 @@ DELETE /api/pengeluaran/{id}                   → delete
 - Tab Pengeluaran: CRUD manual (kategori, nominal, catatan, tanggal)
 
 ### Deliverable Tahap 11
-- [x] Ringkasan keuangan per periode
-- [x] CRUD Pengeluaran
-- [x] Pendapatan teragregat otomatis dari pembayaran
-- [x] Test: ringkasan keuangan
+- [ ] Ringkasan keuangan per periode
+- [ ] CRUD Pengeluaran
+- [ ] Pendapatan teragregat otomatis dari pembayaran
+- [ ] Test: ringkasan keuangan
 
 ---
 
@@ -478,10 +478,10 @@ PUT    /api/reminders/{id}/dismiss            → dismiss/tandai sudah dibaca
 - Dismiss reminder
 
 ### Deliverable Tahap 12
-- [x] Scheduler mendeteksi kondisi dan membuat reminder
-- [x] Notifikasi muncul di navbar
-- [x] Dismiss berfungsi
-- [x] Test: deteksi reminder
+- [ ] Scheduler mendeteksi kondisi dan membuat reminder
+- [ ] Notifikasi muncul di navbar
+- [ ] Dismiss berfungsi
+- [ ] Test: deteksi reminder
 
 ---
 

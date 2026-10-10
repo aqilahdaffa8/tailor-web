@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,50 @@ class Pesanan extends Model
         'catatan',
         'status',
     ];
+
+    /**
+     * Pesanan yang masih dikerjakan.
+     *
+     * @param  Builder<Pesanan>  $query
+     */
+    public function scopeAktif(Builder $query): void
+    {
+        $query->where('status', 'aktif');
+    }
+
+    /**
+     * Pesanan aktif yang deadline-nya sudah lewat.
+     *
+     * @param  Builder<Pesanan>  $query
+     */
+    public function scopeTerlambat(Builder $query): void
+    {
+        $query->where('status', 'aktif')
+            ->whereDate('deadline', '<', now()->toDateString());
+    }
+
+    /**
+     * Pesanan aktif dengan deadline dari hari ini sampai $hari hari ke depan.
+     *
+     * @param  Builder<Pesanan>  $query
+     */
+    public function scopeMendekatiDeadline(Builder $query, int $hari = 3): void
+    {
+        $query->where('status', 'aktif')
+            ->whereBetween('deadline', [now()->toDateString(), now()->addDays($hari)->toDateString()]);
+    }
+
+    /**
+     * Pesanan (selain yang dibatalkan) yang masih memiliki sisa tagihan.
+     * Sisa dihitung oleh Stored Function fn_sisa_pembayaran.
+     *
+     * @param  Builder<Pesanan>  $query
+     */
+    public function scopeBelumLunas(Builder $query): void
+    {
+        $query->where('pesanan.status', '!=', 'dibatalkan')
+            ->whereRaw('fn_sisa_pembayaran(pesanan.id) > 0');
+    }
 
     /**
      * @return array<string, string>

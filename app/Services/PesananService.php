@@ -33,7 +33,7 @@ class PesananService
      * Daftar pesanan dengan filter, pencarian, dan pagination.
      * Sisa tagihan & status bayar dihitung langsung oleh Stored Function MySQL.
      *
-     * @param  array{search?: string, status?: string, pelanggan_id?: int|null, deadline?: string}  $filters
+     * @param  array{search?: string, status?: string, pelanggan_id?: int|null, deadline?: string, pembayaran?: string}  $filters
      * @return LengthAwarePaginator<Pesanan>
      */
     public function getAll(array $filters = [], int $perPage = 15): LengthAwarePaginator
@@ -60,13 +60,13 @@ class PesananService
             ->when($filters['pelanggan_id'] ?? null, fn ($query, $id) => $query->where('pelanggan_id', $id))
             ->when($filters['deadline'] ?? null, function ($query, string $deadline) use ($hariIni) {
                 match ($deadline) {
-                    'terlambat' => $query->where('status', 'aktif')->whereDate('deadline', '<', $hariIni),
-                    'mendekati' => $query->where('status', 'aktif')
-                        ->whereBetween('deadline', [$hariIni, now()->addDays(3)->toDateString()]),
+                    'terlambat' => $query->terlambat(),
+                    'mendekati' => $query->mendekatiDeadline(),
                     'hari_ini' => $query->whereDate('deadline', $hariIni),
                     default => null,
                 };
             })
+            ->when(($filters['pembayaran'] ?? null) === 'belum_lunas', fn ($query) => $query->belumLunas())
             ->orderByRaw("FIELD(pesanan.status, 'aktif', 'selesai', 'diambil', 'dibatalkan')")
             ->orderBy('deadline')
             ->orderByDesc('pesanan.id')

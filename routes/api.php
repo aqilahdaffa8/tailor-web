@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\JenisJasaController;
 use App\Http\Controllers\Api\KategoriController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Public Authentication
-Route::post('/login', [AuthController::class, 'login'])->name('api.login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('api.login');
 
 // Protected Routes (Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
@@ -55,6 +56,15 @@ Route::middleware('auth:sanctum')->group(function () {
         'update' => 'api.pelanggan.update',
         'destroy' => 'api.pelanggan.destroy',
     ]);
+
+    // Dashboard
+    Route::prefix('dashboard')->name('api.dashboard.')->group(function () {
+        Route::get('summary', [DashboardController::class, 'summary'])->name('summary');
+        Route::get('pesanan-aktif', [DashboardController::class, 'pesananAktif'])->name('pesanan-aktif');
+        Route::get('pesanan-mendekati-deadline', [DashboardController::class, 'pesananMendekatiDeadline'])->name('pesanan-mendekati-deadline');
+        Route::get('pesanan-terlambat', [DashboardController::class, 'pesananTerlambat'])->name('pesanan-terlambat');
+        Route::get('stok-menipis', [DashboardController::class, 'stokMenipis'])->name('stok-menipis');
+    });
 
     // Pesanan Jahit
     Route::post('pesanan/{pesanan}/item', [PesananItemController::class, 'store'])->name('api.pesanan.item.store');

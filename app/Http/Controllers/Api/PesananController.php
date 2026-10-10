@@ -16,7 +16,7 @@ class PesananController extends Controller
 
     /**
      * GET /api/pesanan
-     * Daftar pesanan: filter status, pelanggan_id, deadline (terlambat|mendekati|hari_ini), search.
+     * Daftar pesanan: filter status, pelanggan_id, deadline (terlambat|mendekati|hari_ini), pembayaran (belum_lunas), search.
      */
     public function index(Request $request): JsonResponse
     {
@@ -26,6 +26,7 @@ class PesananController extends Controller
                 'status' => $request->string('status')->toString(),
                 'pelanggan_id' => $request->integer('pelanggan_id') ?: null,
                 'deadline' => $request->string('deadline')->toString(),
+                'pembayaran' => $request->string('pembayaran')->toString(),
             ],
             perPage: (int) $request->input('per_page', 15),
         );

@@ -31,6 +31,12 @@
                 <option value="hari_ini" @selected($filters['deadline'] === 'hari_ini')>Deadline Hari Ini</option>
             </select>
 
+            <select name="pembayaran"
+                    class="px-3 py-2.5 bg-white border border-[#E7DED2] rounded-xl text-xs font-medium text-[#38443D] focus:border-[#A8754F] focus:outline-none">
+                <option value="">Semua Pembayaran</option>
+                <option value="belum_lunas" @selected($filters['pembayaran'] === 'belum_lunas')>Belum Lunas</option>
+            </select>
+
             <select name="pelanggan_id"
                     class="px-3 py-2.5 bg-white border border-[#E7DED2] rounded-xl text-xs font-medium text-[#38443D] focus:border-[#A8754F] focus:outline-none max-w-[12rem]">
                 <option value="">Semua Pelanggan</option>

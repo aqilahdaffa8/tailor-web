@@ -794,6 +794,8 @@ Karena sistem akan memiliki **Web Frontend** dan **Mobile Frontend**, tetapi han
 - **Tailwind CSS**
 - **Alpine.js**
 
+> Catatan implementasi: sampai Tahap 10 web frontend memakai Blade + Alpine.js + AJAX; Livewire terpasang sebagai dependensi tetapi belum dipakai.
+
 Web frontend dan backend Laravel berada dalam **satu repository dan satu aplikasi Laravel**.
 
 ## Mobile Frontend
@@ -903,7 +905,7 @@ Android
 Android meminta daftar pesanan:
 
 ```http
-GET /api/orders
+GET /api/pesanan
 ```
 
 Laravel memproses request dan mengembalikan JSON.
@@ -944,7 +946,7 @@ Ketika Android meminta data:
 ```text
 Android
  ↓
-GET /api/orders
+GET /api/pesanan
  ↓
 Laravel
  ↓
@@ -962,7 +964,7 @@ Pesanan yang dibuat melalui Web akan muncul di Android karena keduanya menggunak
 ```text
 Android
  ↓
-POST /api/orders
+POST /api/pesanan
  ↓
 Laravel
  ↓
@@ -1101,7 +1103,6 @@ Bahan (1) ──< (N) Riwayat_Stok
 Pengeluaran (berdiri sendiri, terhubung opsional ke Bahan/Peralatan)
 Peralatan (berdiri sendiri, tidak dikurangi seperti stok habis pakai)
 
-User (1) ──< (N) Riwayat_Aktivitas   [audit trail login web/mobile]
 ```
 
 ### Catatan penting relasi

@@ -24,6 +24,7 @@ class PesananController extends Controller
             'status' => $request->string('status')->toString(),
             'pelanggan_id' => $request->integer('pelanggan_id') ?: null,
             'deadline' => $request->string('deadline')->toString(),
+            'pembayaran' => $request->string('pembayaran')->toString(),
         ];
 
         return view('pesanan.index', [
