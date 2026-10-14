@@ -17,11 +17,10 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Buat dua database MySQL (satu untuk pengembangan, satu khusus test), lalu sesuaikan `DB_*` di `.env`:
+Buat database MySQL, lalu sesuaikan `DB_*` di `.env`:
 
 ```sql
-CREATE DATABASE tailor_web  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE tailor_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE tailor_web CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 ```bash
@@ -34,13 +33,13 @@ Jalankan: `composer run dev`.
 
 ## Test
 
-Test memakai database `tailor_test` (diatur di `phpunit.xml`), terpisah dari data pengembangan.
-Siapkan skemanya sekali:
-
 ```bash
-DB_DATABASE=tailor_test php artisan migrate
 php artisan test
 ```
+
+Test berjalan di database yang sama dengan `.env` (belum ada database test terpisah) dan membutuhkan data seeder (`php artisan migrate --seed`).
+Data yang dibuat test diberi awalan `ZZ-TEST-PESANAN` (atau periode Maret 2001 untuk test keuangan) dan dibersihkan otomatis.
+Jangan menjalankan test pada database produksi; setelah aplikasi live, sebaiknya pindah ke database test terpisah.
 
 ## Arsitektur
 
