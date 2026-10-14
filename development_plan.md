@@ -447,9 +447,9 @@ DELETE /api/pengeluaran/{id}                   → delete
 - Tab Pengeluaran: CRUD manual (kategori, nominal, catatan, tanggal)
 
 ### Deliverable Tahap 11
-- [ ] Ringkasan keuangan per periode
-- [ ] CRUD Pengeluaran
-- [ ] Pendapatan teragregat otomatis dari pembayaran
+- [x] Ringkasan keuangan per periode
+- [x] CRUD Pengeluaran
+- [x] Pendapatan teragregat otomatis dari pembayaran
 - [ ] Test: ringkasan keuangan
 
 ---

@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Bahan;
-use App\Models\Pembayaran;
-use App\Models\Pengeluaran;
 use App\Models\Pesanan;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +14,7 @@ class DashboardService
     public function __construct(
         private readonly PesananService $pesananService,
         private readonly InventoryService $inventoryService,
+        private readonly KeuanganService $keuanganService,
     ) {}
 
     /**
@@ -37,13 +36,7 @@ class DashboardService
         $awal = now()->startOfMonth();
         $akhir = now()->endOfMonth();
 
-        $pendapatan = (float) Pembayaran::query()
-            ->whereBetween('tanggal_bayar', [$awal, $akhir])
-            ->sum('jumlah');
-
-        $pengeluaran = (float) Pengeluaran::query()
-            ->whereBetween('tanggal', [$awal->toDateString(), $akhir->toDateString()])
-            ->sum('nominal');
+        $keuangan = $this->keuanganService->totalPeriode($awal, $akhir);
 
         return [
             'periode' => [
@@ -58,11 +51,7 @@ class DashboardService
                 'jumlah_pesanan' => Pesanan::belumLunas()->count(),
                 'total_sisa' => (float) Pesanan::belumLunas()->sum(DB::raw('fn_sisa_pembayaran(pesanan.id)')),
             ],
-            'keuangan_bulan_ini' => [
-                'pendapatan' => $pendapatan,
-                'pengeluaran' => $pengeluaran,
-                'selisih' => $pendapatan - $pengeluaran,
-            ],
+            'keuangan_bulan_ini' => $keuangan,
             'stok_menipis' => $this->inventoryService->getBahanMenipis()->count(),
         ];
     }

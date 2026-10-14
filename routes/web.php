@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengaturanController;
@@ -91,6 +92,14 @@ Route::middleware('auth')->group(function () {
 
     // Pengukuran Pelanggan
     Route::resource('pengukuran', PengukuranController::class);
+
+    // Keuangan (pendapatan otomatis dari pembayaran + pengeluaran manual)
+    Route::prefix('keuangan')->name('keuangan.')->group(function () {
+        Route::get('/', [KeuanganController::class, 'index'])->name('index');
+        Route::post('/pengeluaran', [KeuanganController::class, 'storePengeluaran'])->name('pengeluaran.store');
+        Route::put('/pengeluaran/{pengeluaran}', [KeuanganController::class, 'updatePengeluaran'])->name('pengeluaran.update');
+        Route::delete('/pengeluaran/{pengeluaran}', [KeuanganController::class, 'destroyPengeluaran'])->name('pengeluaran.destroy');
+    });
 
     // Inventory (Bahan & Peralatan)
     Route::prefix('inventory')->name('inventory.')->group(function () {

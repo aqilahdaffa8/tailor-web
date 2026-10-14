@@ -4,10 +4,12 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\JenisJasaController;
+use App\Http\Controllers\Api\KeuanganController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\PelangganController;
 use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\PengaturanController;
+use App\Http\Controllers\Api\PengeluaranController;
 use App\Http\Controllers\Api\PengukuranController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\PesananItemController;
@@ -115,6 +117,18 @@ Route::middleware('auth:sanctum')->group(function () {
         'show' => 'api.pengukuran.show',
         'update' => 'api.pengukuran.update',
         'destroy' => 'api.pengukuran.destroy',
+    ]);
+
+    // Keuangan
+    Route::prefix('keuangan')->name('api.keuangan.')->group(function () {
+        Route::get('ringkasan', [KeuanganController::class, 'ringkasan'])->name('ringkasan');
+        Route::get('pendapatan', [KeuanganController::class, 'pendapatan'])->name('pendapatan');
+    });
+    Route::apiResource('pengeluaran', PengeluaranController::class)->except('show')->names([
+        'index' => 'api.pengeluaran.index',
+        'store' => 'api.pengeluaran.store',
+        'update' => 'api.pengeluaran.update',
+        'destroy' => 'api.pengeluaran.destroy',
     ]);
 
     // Inventory (Bahan & Peralatan)
