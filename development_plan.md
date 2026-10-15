@@ -450,7 +450,7 @@ DELETE /api/pengeluaran/{id}                   → delete
 - [x] Ringkasan keuangan per periode
 - [x] CRUD Pengeluaran
 - [x] Pendapatan teragregat otomatis dari pembayaran
-- [ ] Test: ringkasan keuangan
+- [x] Test: ringkasan keuangan
 
 ---
 
@@ -481,7 +481,7 @@ PUT    /api/reminders/{id}/dismiss            → dismiss/tandai sudah dibaca
 - [x] Scheduler mendeteksi kondisi dan membuat reminder
 - [x] Notifikasi muncul di navbar
 - [x] Dismiss berfungsi
-- [ ] Test: deteksi reminder
+- [x] Test: deteksi reminder
 
 ---
 
@@ -515,7 +515,7 @@ DELETE /api/tutorial/{id}                     → delete
 - [ ] Seed data demo lengkap
 - [ ] Jalankan seluruh test suite
 - [ ] Pint formatting final
-- [ ] README.md: cara install, setup, dan menjalankan
+- [x] README.md: cara install, setup, dan menjalankan
 
 ---
 

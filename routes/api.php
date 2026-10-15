@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\PengaturanController;
 use App\Http\Controllers\Api\PengeluaranController;
 use App\Http\Controllers\Api\ReminderController;
+use App\Http\Controllers\Api\TutorialController;
 use App\Http\Controllers\Api\PengukuranController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\PesananItemController;
@@ -118,6 +119,15 @@ Route::middleware('auth:sanctum')->group(function () {
         'show' => 'api.pengukuran.show',
         'update' => 'api.pengukuran.update',
         'destroy' => 'api.pengukuran.destroy',
+    ]);
+
+    // Tutorial / Knowledge Base
+    Route::apiResource('tutorial', TutorialController::class)->names([
+        'index' => 'api.tutorial.index',
+        'store' => 'api.tutorial.store',
+        'show' => 'api.tutorial.show',
+        'update' => 'api.tutorial.update',
+        'destroy' => 'api.tutorial.destroy',
     ]);
 
     // Reminder

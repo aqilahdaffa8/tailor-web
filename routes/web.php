@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengaturanController;
@@ -99,6 +100,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/sinkronkan', [ReminderController::class, 'sinkronkan'])->name('sinkronkan');
         Route::post('/dismiss-semua', [ReminderController::class, 'dismissSemua'])->name('dismiss-semua');
         Route::put('/{reminder}/dismiss', [ReminderController::class, 'dismiss'])->name('dismiss');
+    });
+
+    // Tutorial / Knowledge Base
+    Route::prefix('tutorial')->name('tutorial.')->group(function () {
+        Route::get('/', [TutorialController::class, 'index'])->name('index');
+        Route::get('/create', [TutorialController::class, 'create'])->name('create');
+        Route::post('/', [TutorialController::class, 'store'])->name('store');
+        Route::get('/{tutorial}', [TutorialController::class, 'show'])->name('show');
+        Route::get('/{tutorial}/edit', [TutorialController::class, 'edit'])->name('edit');
+        Route::put('/{tutorial}', [TutorialController::class, 'update'])->name('update');
+        Route::delete('/{tutorial}', [TutorialController::class, 'destroy'])->name('destroy');
+        Route::get('/{tutorial}/unduh', [TutorialController::class, 'unduh'])->name('unduh');
     });
 
     // Keuangan (pendapatan otomatis dari pembayaran + pengeluaran manual)
