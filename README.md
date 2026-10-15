@@ -41,6 +41,17 @@ Test berjalan di database yang sama dengan `.env` (belum ada database test terpi
 Data yang dibuat test diberi awalan `ZZ-TEST-PESANAN` (atau periode Maret 2001 untuk test keuangan) dan dibersihkan otomatis.
 Jangan menjalankan test pada database produksi; setelah aplikasi live, sebaiknya pindah ke database test terpisah.
 
+## Reminder (scheduler)
+
+Pengecekan reminder (deadline, terlambat, pembayaran, pesanan siap diambil, stok menipis) berjalan harian pukul 07:00 lewat Laravel Scheduler.
+Di server, tambahkan satu entri cron:
+
+```
+* * * * * cd /path/ke/proyek && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Saat pengembangan, jalankan manual dengan `php artisan reminder:sinkronkan` atau tombol "Periksa sekarang" di panel bell.
+
 ## Arsitektur
 
 Business logic hanya ada di `app/Services`. Controller web (`app/Http/Controllers`) dan API (`app/Http/Controllers/Api`) hanya memanggil service yang sama.

@@ -473,14 +473,14 @@ PUT    /api/reminders/{id}/dismiss            → dismiss/tandai sudah dibaca
 
 ### Frontend (Blade/Livewire)
 - Notifikasi bell icon di navbar (count badge)
-- Dropdown/panel reminder
+- Dropdown/panel reminder (diimplementasikan dengan Blade + Alpine; Livewire belum dipakai)
 - Link ke pesanan/bahan terkait
 - Dismiss reminder
 
 ### Deliverable Tahap 12
-- [ ] Scheduler mendeteksi kondisi dan membuat reminder
-- [ ] Notifikasi muncul di navbar
-- [ ] Dismiss berfungsi
+- [x] Scheduler mendeteksi kondisi dan membuat reminder
+- [x] Notifikasi muncul di navbar
+- [x] Dismiss berfungsi
 - [ ] Test: deteksi reminder
 
 ---

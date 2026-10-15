@@ -157,12 +157,60 @@
 
                 <div class="flex items-center gap-3">
                     <!-- Notification Reminder Icon -->
-                    <button class="relative p-2 rounded-xl text-[#38443D] hover:bg-[#F7F4EE] transition-colors cursor-pointer">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                        </svg>
-                        <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#A8754F]"></span>
-                    </button>
+                    <div class="relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape.window="open = false">
+                        <button type="button" @click="open = !open" title="Pengingat"
+                                class="relative p-2 rounded-xl text-[#38443D] hover:bg-[#F7F4EE] transition-colors cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg>
+                            @if(($reminderJumlah ?? 0) > 0)
+                                <span class="absolute -top-0.5 -right-0.5 min-w-4 h-4 px-1 rounded-full bg-[#B86B67] text-white text-[10px] font-semibold flex items-center justify-center">
+                                    {{ $reminderJumlah > 99 ? '99+' : $reminderJumlah }}
+                                </span>
+                            @endif
+                        </button>
+
+                        <div x-show="open" x-cloak x-transition
+                             class="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl border border-[#E7DED2] shadow-lg z-30 overflow-hidden">
+                            <div class="flex items-center justify-between px-4 py-3 border-b border-[#E7DED2] bg-[#F7F4EE]/60">
+                                <h3 class="font-heading font-semibold text-sm text-[#29302D]">Pengingat</h3>
+                                @if(($reminderJumlah ?? 0) > 0)
+                                    <form action="{{ route('reminders.dismiss-semua') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="text-[11px] font-semibold text-[#A8754F] hover:underline cursor-pointer">Tandai semua dibaca</button>
+                                    </form>
+                                @endif
+                            </div>
+
+                            <div class="max-h-96 overflow-y-auto">
+                                @forelse(($reminderDaftar ?? collect()) as $reminder)
+                                    <div class="flex items-start gap-3 px-4 py-3 border-b border-[#E7DED2] last:border-b-0 hover:bg-[#F7F4EE]/40">
+                                        <a href="{{ $reminder->tautan ?? '#' }}" class="flex-1 min-w-0">
+                                            <p class="text-xs font-semibold text-[#29302D]">{{ $reminder->judul }}</p>
+                                            <p class="text-[11px] text-[#9A816B] mt-0.5">{{ $reminder->pesan }}</p>
+                                        </a>
+                                        <form action="{{ route('reminders.dismiss', $reminder) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" title="Tandai sudah dibaca"
+                                                    class="p-1 rounded-lg text-[#9A816B] hover:text-[#29302D] hover:bg-[#F7F4EE] cursor-pointer">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @empty
+                                    <p class="px-4 py-8 text-center text-xs text-[#9A816B]">Tidak ada pengingat baru.</p>
+                                @endforelse
+                            </div>
+
+                            <form action="{{ route('reminders.sinkronkan') }}" method="POST" class="px-4 py-3 border-t border-[#E7DED2] bg-[#F7F4EE]/60">
+                                @csrf
+                                <button type="submit" class="text-[11px] font-semibold text-[#38443D] hover:text-[#A8754F] cursor-pointer">Periksa sekarang</button>
+                            </form>
+                        </div>
+                    </div>
 
                     <div class="h-6 w-px bg-[#E7DED2]"></div>
 

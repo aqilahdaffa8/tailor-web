@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengaturanController;
@@ -92,6 +93,13 @@ Route::middleware('auth')->group(function () {
 
     // Pengukuran Pelanggan
     Route::resource('pengukuran', PengukuranController::class);
+
+    // Reminder (notifikasi di navbar)
+    Route::prefix('reminders')->name('reminders.')->group(function () {
+        Route::post('/sinkronkan', [ReminderController::class, 'sinkronkan'])->name('sinkronkan');
+        Route::post('/dismiss-semua', [ReminderController::class, 'dismissSemua'])->name('dismiss-semua');
+        Route::put('/{reminder}/dismiss', [ReminderController::class, 'dismiss'])->name('dismiss');
+    });
 
     // Keuangan (pendapatan otomatis dari pembayaran + pengeluaran manual)
     Route::prefix('keuangan')->name('keuangan.')->group(function () {

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PelangganController;
 use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\PengaturanController;
 use App\Http\Controllers\Api\PengeluaranController;
+use App\Http\Controllers\Api\ReminderController;
 use App\Http\Controllers\Api\PengukuranController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\PesananItemController;
@@ -118,6 +119,10 @@ Route::middleware('auth:sanctum')->group(function () {
         'update' => 'api.pengukuran.update',
         'destroy' => 'api.pengukuran.destroy',
     ]);
+
+    // Reminder
+    Route::get('reminders', [ReminderController::class, 'index'])->name('api.reminders.index');
+    Route::put('reminders/{reminder}/dismiss', [ReminderController::class, 'dismiss'])->name('api.reminders.dismiss');
 
     // Keuangan
     Route::prefix('keuangan')->name('api.keuangan.')->group(function () {
