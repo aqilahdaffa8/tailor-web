@@ -23,15 +23,24 @@ class InventoryController extends Controller
      */
     public function bahanIndex(Request $request): JsonResponse
     {
-        $bahan = $this->inventoryService->getAllBahan(
+        $request->validate(['per_page' => ['nullable', 'integer', 'min:1', 'max:100']]);
+
+        $bahan = $this->inventoryService->paginateBahan(
             search: $request->string('search')->toString(),
             kategoriId: $request->has('kategori_id') ? $request->integer('kategori_id') : null,
-            hanyaMenipis: $request->boolean('menipis')
+            hanyaMenipis: $request->boolean('menipis'),
+            perPage: $request->integer('per_page', 15),
         );
 
         return response()->json([
             'success' => true,
-            'data' => $bahan,
+            'data' => $bahan->items(),
+            'meta' => [
+                'current_page' => $bahan->currentPage(),
+                'last_page' => $bahan->lastPage(),
+                'per_page' => $bahan->perPage(),
+                'total' => $bahan->total(),
+            ],
         ]);
     }
 
@@ -126,14 +135,23 @@ class InventoryController extends Controller
      */
     public function peralatanIndex(Request $request): JsonResponse
     {
-        $peralatan = $this->inventoryService->getAllPeralatan(
+        $request->validate(['per_page' => ['nullable', 'integer', 'min:1', 'max:100']]);
+
+        $peralatan = $this->inventoryService->paginatePeralatan(
             search: $request->string('search')->toString(),
-            kondisi: $request->string('kondisi')->toString() ?: null
+            kondisi: $request->string('kondisi')->toString() ?: null,
+            perPage: $request->integer('per_page', 15),
         );
 
         return response()->json([
             'success' => true,
-            'data' => $peralatan,
+            'data' => $peralatan->items(),
+            'meta' => [
+                'current_page' => $peralatan->currentPage(),
+                'last_page' => $peralatan->lastPage(),
+                'per_page' => $peralatan->perPage(),
+                'total' => $peralatan->total(),
+            ],
         ]);
     }
 

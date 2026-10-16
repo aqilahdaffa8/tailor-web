@@ -20,9 +20,11 @@ class PelangganController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        $request->validate(['per_page' => ['nullable', 'integer', 'min:1', 'max:100']]);
+
         $data = $this->pelangganService->getAll(
             search: $request->string('search')->toString(),
-            perPage: (int) $request->input('per_page', 15),
+            perPage: $request->integer('per_page', 15),
         );
 
         return response()->json([
@@ -31,6 +33,7 @@ class PelangganController extends Controller
             'meta' => [
                 'current_page' => $data->currentPage(),
                 'last_page' => $data->lastPage(),
+                'per_page' => $data->perPage(),
                 'total' => $data->total(),
             ],
         ]);

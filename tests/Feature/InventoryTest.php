@@ -402,16 +402,17 @@ class InventoryTest extends TestCase
         Bahan::factory()->create(['nama_bahan' => 'API Aman Uji', 'stok' => 50, 'stok_minimum' => 5]);
 
         $semua = $this->withHeaders($this->apiHeaders())
-            ->getJson('/api/bahan')
+            ->getJson('/api/bahan?search=Uji')
             ->assertStatus(200)
-            ->assertJsonPath('success', true);
+            ->assertJsonPath('success', true)
+            ->assertJsonStructure(['meta' => ['current_page', 'last_page', 'per_page', 'total']]);
 
         $namaSemua = collect($semua->json('data'))->pluck('nama_bahan');
         $this->assertTrue($namaSemua->contains('API Menipis Uji'));
         $this->assertTrue($namaSemua->contains('API Aman Uji'));
 
         $menipis = $this->withHeaders($this->apiHeaders())
-            ->getJson('/api/bahan?menipis=1')
+            ->getJson('/api/bahan?menipis=1&search=Uji')
             ->assertStatus(200);
 
         $namaMenipis = collect($menipis->json('data'))->pluck('nama_bahan');
@@ -502,7 +503,7 @@ class InventoryTest extends TestCase
 
         // 2. List + filter kondisi
         $list = $this->withHeaders($headers)
-            ->getJson('/api/peralatan?kondisi=Baik')
+            ->getJson('/api/peralatan?kondisi=Baik&search=Obras')
             ->assertStatus(200);
         $this->assertTrue(collect($list->json('data'))->pluck('nama_alat')->contains('API Mesin Obras'));
 

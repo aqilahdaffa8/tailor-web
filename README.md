@@ -52,6 +52,41 @@ Di server, tambahkan satu entri cron:
 
 Saat pengembangan, jalankan manual dengan `php artisan reminder:sinkronkan` atau tombol "Periksa sekarang" di panel bell.
 
+## Konvensi API
+
+Semua endpoint ada di bawah `/api` dan memakai token Bearer (Sanctum), kecuali `POST /api/login`.
+
+**Respons sukses**
+
+```json
+{ "success": true, "message": "opsional", "data": {}, "meta": {} }
+```
+
+**Respons error** (selalu `success: false`)
+
+| Status | Arti | Isi |
+|--------|------|-----|
+| 401 | Belum login / token tidak valid | `message` |
+| 403 | Tidak punya akses | `message` |
+| 404 | Data atau endpoint tidak ditemukan | `message` |
+| 405 | Metode HTTP tidak diizinkan | `message` |
+| 422 | Validasi gagal | `message`, `errors` (per field) |
+| 429 | Terlalu banyak permintaan (login dibatasi 5/menit) | `message`, header `Retry-After` |
+| 500 | Kesalahan server | `message` (detail disembunyikan saat `APP_DEBUG=false`) |
+
+**Pagination** berlaku untuk list yang bisa membesar: pelanggan, pesanan, bahan, peralatan, tutorial, pengeluaran, dan pendapatan.
+Parameter `?page=` dan `?per_page=` (1-100, default 15; tutorial 12) menghasilkan:
+
+```json
+"meta": { "current_page": 1, "last_page": 3, "per_page": 15, "total": 42 }
+```
+
+List yang sengaja **tidak** dipaginasi karena kecil atau terbatas: master data (kategori, jenis jasa), daftar per induk (pengukuran per pelanggan, pembayaran per pesanan, pola per kategori, riwayat stok), widget dashboard (parameter `limit`), dan reminder aktif.
+
+**Upload file** (PDF/gambar) memakai `multipart/form-data`. Untuk memperbarui data **dengan file**, kirim `POST` dengan field `_method=PUT`.
+
+Pesan validasi berbahasa Indonesia (`lang/id`). Atur `APP_LOCALE=id` di `.env`.
+
 ## Arsitektur
 
 Business logic hanya ada di `app/Services`. Controller web (`app/Http/Controllers`) dan API (`app/Http/Controllers/Api`) hanya memanggil service yang sama.

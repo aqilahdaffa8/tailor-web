@@ -508,11 +508,11 @@ DELETE /api/tutorial/{id}                     → delete
 - Form tambah/edit tutorial
 
 ### Finalisasi
-- [ ] Review seluruh API endpoint (konsistensi response format)
-- [ ] Pagination konsisten di semua list endpoint
-- [ ] Error handling & validation message konsisten
+- [x] Review seluruh API endpoint (konsistensi response format)
+- [x] Pagination konsisten di semua list endpoint
+- [x] Error handling & validation message konsisten
 - [ ] Storage link (`php artisan storage:link`)
-- [ ] Seed data demo lengkap
+- [ ] Seed data demo lengkap (ditunda: aplikasi memakai database asli; seeder demo dibuat bila dibutuhkan)
 - [ ] Jalankan seluruh test suite
 - [ ] Pint formatting final
 - [x] README.md: cara install, setup, dan menjalankan

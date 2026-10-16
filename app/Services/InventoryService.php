@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Bahan;
 use App\Models\Peralatan;
 use App\Models\RiwayatStok;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class InventoryService
@@ -16,6 +18,24 @@ class InventoryService
      * @return Collection<int, Bahan>
      */
     public function getAllBahan(string $search = '', ?int $kategoriId = null, bool $hanyaMenipis = false): Collection
+    {
+        return $this->queryBahan($search, $kategoriId, $hanyaMenipis)->get();
+    }
+
+    /**
+     * Versi paginated dari getAllBahan() (dipakai API).
+     *
+     * @return LengthAwarePaginator<Bahan>
+     */
+    public function paginateBahan(string $search = '', ?int $kategoriId = null, bool $hanyaMenipis = false, int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->queryBahan($search, $kategoriId, $hanyaMenipis)->paginate($perPage);
+    }
+
+    /**
+     * @return Builder<Bahan>
+     */
+    private function queryBahan(string $search, ?int $kategoriId, bool $hanyaMenipis): Builder
     {
         return Bahan::query()
             ->with('kategoriBahan')
@@ -28,8 +48,7 @@ class InventoryService
             ->when($hanyaMenipis, function ($query) {
                 $query->whereColumn('stok', '<=', 'stok_minimum');
             })
-            ->orderBy('nama_bahan')
-            ->get();
+            ->orderBy('nama_bahan');
     }
 
     /**
@@ -149,6 +168,24 @@ class InventoryService
      */
     public function getAllPeralatan(string $search = '', ?string $kondisi = null): Collection
     {
+        return $this->queryPeralatan($search, $kondisi)->get();
+    }
+
+    /**
+     * Versi paginated dari getAllPeralatan() (dipakai API).
+     *
+     * @return LengthAwarePaginator<Peralatan>
+     */
+    public function paginatePeralatan(string $search = '', ?string $kondisi = null, int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->queryPeralatan($search, $kondisi)->paginate($perPage);
+    }
+
+    /**
+     * @return Builder<Peralatan>
+     */
+    private function queryPeralatan(string $search, ?string $kondisi): Builder
+    {
         return Peralatan::query()
             ->when($search, function ($query, string $search) {
                 $query->where('nama_alat', 'like', "%{$search}%");
@@ -156,8 +193,7 @@ class InventoryService
             ->when($kondisi, function ($query, string $kondisi) {
                 $query->where('kondisi', $kondisi);
             })
-            ->orderBy('nama_alat')
-            ->get();
+            ->orderBy('nama_alat');
     }
 
     /**
