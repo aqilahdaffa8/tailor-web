@@ -78,7 +78,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Kesalahan tak terduga: sembunyikan detail di produksi (saat APP_DEBUG=true tetap tampil untuk debugging).
-        $exceptions->render(function (\Throwable $e, Request $request) use ($wantsJson) {
+        $exceptions->render(function (Throwable $e, Request $request) use ($wantsJson) {
             if (! $wantsJson($request) || config('app.debug')) {
                 return null;
             }

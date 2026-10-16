@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Tutorial;
+use App\Services\TutorialService;
+use Database\Seeders\TutorialSeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -513,7 +515,7 @@ class TutorialTest extends PesananTestCase
         $this->buatTutorial('K2', ['kategori' => self::PREFIX.' Alfa']);
         $this->buatTutorial('K3', ['kategori' => self::PREFIX.' Alfa']);
 
-        $kategori = app(\App\Services\TutorialService::class)->daftarKategori()
+        $kategori = app(TutorialService::class)->daftarKategori()
             ->filter(fn (string $k) => str_starts_with($k, self::PREFIX))
             ->values()
             ->all();
@@ -523,7 +525,7 @@ class TutorialTest extends PesananTestCase
 
     public function test_seeder_tutorial_idempotent(): void
     {
-        $seeder = new \Database\Seeders\TutorialSeeder;
+        $seeder = new TutorialSeeder;
         $seeder->run();
         $jumlah = Tutorial::count();
         $seeder->run();

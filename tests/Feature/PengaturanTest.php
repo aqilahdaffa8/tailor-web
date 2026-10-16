@@ -35,7 +35,7 @@ class PengaturanTest extends TestCase
     {
         $response = $this->actingAs($this->user)->get('/pengaturan');
         $response->assertStatus(200);
-        $response->assertSee('Pengaturan Atelier', false);
+        $response->assertSee('Pengaturan Usaha', false);
     }
 
     /**

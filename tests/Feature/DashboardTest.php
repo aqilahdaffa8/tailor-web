@@ -131,7 +131,7 @@ class DashboardTest extends PesananTestCase
         $this->actingAs($this->user)
             ->get('/dashboard')
             ->assertStatus(200)
-            ->assertSee('Ruang Kerja Atelier')
+            ->assertSee('Dashboard')
             ->assertSee('Buat Pesanan Baru')
             ->assertSee('Pesanan Aktif')
             ->assertSee('Mendekati Deadline')

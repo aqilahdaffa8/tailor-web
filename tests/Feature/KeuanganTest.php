@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\KategoriPengeluaran;
 use App\Models\Pengeluaran;
 use App\Models\Pesanan;
+use App\Services\DashboardService;
 use App\Services\KeuanganService;
 
 /**
@@ -168,7 +169,7 @@ class KeuanganTest extends PesananTestCase
         $service = app(KeuanganService::class);
         $total = $service->totalPeriode(now()->startOfMonth(), now()->endOfMonth());
 
-        $dashboard = app(\App\Services\DashboardService::class)->ringkasan()['keuangan_bulan_ini'];
+        $dashboard = app(DashboardService::class)->ringkasan()['keuangan_bulan_ini'];
 
         $this->assertEquals($total['pendapatan'], $dashboard['pendapatan']);
         $this->assertEquals($total['pengeluaran'], $dashboard['pengeluaran']);

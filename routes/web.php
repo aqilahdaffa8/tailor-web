@@ -4,8 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KeuanganController;
-use App\Http\Controllers\ReminderController;
-use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengaturanController;
@@ -13,6 +11,8 @@ use App\Http\Controllers\PengukuranController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\PesananItemController;
 use App\Http\Controllers\PolaController;
+use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\TutorialController;
 use Illuminate\Support\Facades\Route;
 
 /*

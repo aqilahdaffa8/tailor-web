@@ -1,18 +1,18 @@
 @php
     $daftarWarna = [
         // Status pesanan
-        'aktif' => ['Aktif', 'bg-[#C49A52]/15 text-[#A8754F]'],
-        'selesai' => ['Selesai', 'bg-[#6F8A78]/15 text-[#6F8A78]'],
-        'diambil' => ['Diambil', 'bg-[#38443D]/10 text-[#38443D]'],
-        'dibatalkan' => ['Dibatalkan', 'bg-[#B86B67]/15 text-[#B86B67]'],
+        'aktif' => ['Aktif', 'bg-blue-50 text-blue-700 ring-1 ring-blue-600/20'],
+        'selesai' => ['Selesai', 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20'],
+        'diambil' => ['Diambil', 'bg-zinc-100 text-zinc-700 ring-1 ring-zinc-600/20'],
+        'dibatalkan' => ['Dibatalkan', 'bg-rose-50 text-rose-700 ring-1 ring-rose-600/20'],
         // Status item
-        'menunggu' => ['Menunggu', 'bg-[#E7DED2]/70 text-[#9A816B]'],
-        'diproses' => ['Diproses', 'bg-[#C49A52]/15 text-[#A8754F]'],
+        'menunggu' => ['Menunggu', 'bg-zinc-100 text-zinc-600 ring-1 ring-zinc-500/20'],
+        'diproses' => ['Diproses', 'bg-amber-50 text-amber-700 ring-1 ring-amber-600/20'],
         // Status pembayaran
-        'Belum Bayar' => ['Belum Bayar', 'bg-[#B86B67]/15 text-[#B86B67]'],
-        'DP' => ['DP', 'bg-[#C49A52]/15 text-[#A8754F]'],
-        'Lunas' => ['Lunas', 'bg-[#6F8A78]/15 text-[#6F8A78]'],
+        'Belum Bayar' => ['Belum Bayar', 'bg-rose-50 text-rose-700 ring-1 ring-rose-600/20'],
+        'DP' => ['DP', 'bg-amber-50 text-amber-700 ring-1 ring-amber-600/20'],
+        'Lunas' => ['Lunas', 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20'],
     ];
-    [$label, $kelas] = $daftarWarna[$status] ?? [ucfirst((string) $status), 'bg-[#F7F4EE] text-[#9A816B]'];
+    [$label, $kelas] = $daftarWarna[$status] ?? [ucfirst((string) $status), 'bg-zinc-100 text-zinc-700 ring-1 ring-zinc-600/20'];
 @endphp
-<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold {{ $kelas }}">{{ $label }}</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $kelas }}">{{ $label }}</span>

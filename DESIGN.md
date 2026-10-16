@@ -1,4 +1,4 @@
-# Design & Motion Direction
+# Design & Interface Guidelines
 
 ## Tailor Management System
 
@@ -6,668 +6,137 @@
 
 Konsep utama:
 
-**Modern SaaS Dashboard + Digital Atelier + Tailoring Pattern Book**
+**Modern Minimalist SaaS Dashboard (Clean, Focused, & High-Density)**
 
-Desain harus terasa modern, profesional, hangat, dan jelas memiliki identitas dunia penjahitan.
+Antarmuka berfokus pada kecepatan kerja operasional, kejelasan data, dan kenyamanan visual bagi pemilik usaha jahit di desktop, laptop, maupun perangkat mobile/tablet di bengkel.
 
-Gunakan elemen seperti:
-
-* Garis jahitan putus-putus.
-* Garis pola pakaian.
-* Gunting.
-* Kain.
-* Benang dan jarum.
-* Meteran.
-* Kancing.
-* Hanger.
-* Sketsa pakaian.
-* Pattern paper.
-
-Elemen tailoring digunakan sebagai aksen visual, bukan memenuhi seluruh interface.
+Prinsip desain:
+* **Bersih & Fungsional**: Menghilangkan ornamen literal berlebihan (ikon gunting vintage, garis jahitan putus-putus/stitching line, titik dekoratif, dan istilah "atelier").
+* **High Legibility**: Data pesanan, ukuran badan baju, dan nominal keuangan terbaca jelas seketika tanpa font mikro yang melelahkan mata.
+* **Konsistensi Pola**: Seluruh halaman daftar data mengikuti pola tunggal: Judul, Toolbar (Pencarian & Tombol Aksi), Tabel Bergaris Tipis, Badge Status Pastel, dan Pagination.
 
 ---
 
-# 2. Color System
+### 2. Color System (True Neutral Charcoal & Putih)
 
-### Primary Palette
+Sistem warna mengadopsi palet monokromatis industrial netral murni (Zinc) tanpa bias semburat biru, dengan aksen status pastel yang tenang.
 
-| Nama       | Hex       | Penggunaan                   |
-| ---------- | --------- | ---------------------------- |
-| Ivory      | `#F7F4EE` | Background utama             |
-| White      | `#FFFFFF` | Card dan surface             |
-| Charcoal   | `#29302D` | Text utama, sidebar, primary |
-| Dark Olive | `#38443D` | Primary alternative          |
-| Warm Taupe | `#9A816B` | Secondary accent             |
-| Warm Brown | `#A8754F` | Tailoring accent             |
-| Beige      | `#E7DED2` | Background secondary         |
-| Soft Green | `#6F8A78` | Success, completed           |
-| Warm Amber | `#C49A52` | Warning, deadline            |
-| Muted Red  | `#B86B67` | Error, overdue               |
+#### Primary Palette
 
-### Warna aksen tambahan
+| Token / Nama | Hex | Penggunaan |
+| :--- | :--- | :--- |
+| **Canvas Background** | `#FAFAFA` (`zinc-50`) | Latar belakang halaman aplikasi (netral murni) |
+| **Surface / Card** | `#FFFFFF` (`white`) | Kontainer kartu data, modal, dan popover |
+| **Sidebar Background** | `#18181B` (`zinc-900`) | Latar belakang sidebar navigasi (charcoal murni) |
+| **Sidebar Menu Aktif** | `#27272A` (`zinc-800`) | Pil menu navigasi yang aktif di sidebar |
+| **Border / Divider** | `#E4E4E7` (`zinc-200`) | Garis tepi kartu dan pembatas tabel |
+| **Border Subtle** | `#F4F4F5` (`zinc-100`) | Garis baris tabel dan divider halus |
+| **Charcoal Primary** | `#18181B` (`zinc-900`) | Teks heading, tombol aksi utama (CTA) |
+| **Charcoal Hover** | `#27272A` (`zinc-800`) | Hover state tombol utama |
+| **Text Secondary** | `#52525B` (`zinc-600`) | Teks isi paragraf, label formulir |
+| **Text Muted** | `#71717A` (`zinc-500`) | Header tabel, metadata, placeholder |
+| **Surface Subtle** | `#F4F4F5` (`zinc-100`) | Hover baris tabel, badge netral |
 
-Untuk elemen visual tertentu dapat digunakan secara terbatas:
+#### Status Palette (Soft Pastel Rings)
 
-* Terracotta: `#B9654A`
-* Dusty Blue: `#71879A`
-* Dusty Rose: `#B58B86`
+Status tidak menggunakan warna pekat yang berteriak, melainkan aksen pastel lembut dengan ring border transparan:
 
-Jangan menggunakan seluruh warna secara bersamaan. Gunakan **Charcoal/Dark Olive + Ivory + Warm Brown/Taupe** sebagai identitas utama, lalu warna status sebagai aksen.
-
-### Karakter warna
-
-Visual harus terasa seperti:
-
-* Kertas pola.
-* Kain linen.
-* Ruang kerja atelier.
-* Kayu dan alat jahit.
-* Material fashion premium.
-
-Hindari warna neon atau kombinasi yang terlalu terang karena akan menghilangkan kesan atelier.
+* **Selesai / Aktif**: `bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20`
+* **Proses / Menunggu**: `bg-amber-50 text-amber-700 ring-1 ring-amber-600/20`
+* **Terlambat / Batal / Error**: `bg-rose-50 text-rose-700 ring-1 ring-rose-600/20`
+* **Draf / Netral**: `bg-slate-100 text-slate-700 ring-1 ring-slate-600/20`
 
 ---
 
-# 3. Tailoring Visual Elements
+### 3. Typography
 
-### Stitching Line
+Menggunakan **Inter** sebagai font tunggal di seluruh aplikasi.
 
-Gunakan garis jahitan sebagai salah satu identitas visual utama.
+* **Heading**: `font-semibold` (600) atau `font-bold` (700) dengan `tracking-tight`.
+* **Body / Konten Tabel**: `text-sm` (14px) dengan warna `text-slate-700` atau `text-slate-900`.
+* **Subteks / Metadata**: `text-xs` (12px) dengan warna `text-slate-500`.
+* **Header Tabel**: `text-xs font-medium text-slate-500` (menggunakan *Sentence case*, bukan ALL CAPS renggang).
+* **Angka Ukuran & Nominal Keuangan**: Menggunakan `tabular-nums` agar sejajar vertikal saat dibandingkan dalam tabel atau invoice.
 
-Variasi:
-
-* Dashed line.
-* Dotted line.
-* Double stitching.
-* Curved stitching.
-* Garis mengikuti bentuk pola pakaian.
-
-Gunakan pada:
-
-* Divider.
-* Card tertentu.
-* Timeline.
-* Progress.
-* Banner.
-* Empty state.
-
-Jangan menggunakan stitching border pada semua component.
-
-### Pattern Line
-
-Gunakan garis seperti pola potongan pakaian pada:
-
-* Background.
-* Section divider.
-* Hero area.
-* Empty state.
-* Pattern Library.
-* Detail pesanan.
-
-### Tailoring Objects
-
-Gunakan secara selektif:
-
-* Gunting.
-* Meteran.
-* Benang.
-* Jarum.
-* Kancing.
-* Kain.
-* Hanger.
-* Mesin jahit.
-* Potongan pola.
+> **Aturan**: Hapus seluruh penggunaan ukuran teks mikro (< 12px seperti 10px atau 11px) demi kemudahan membaca di layar mobile dan bengkel kerja.
 
 ---
 
-# 4. Motion Design
+### 4. Radius & Border Standards
 
-Motion harus menjadi bagian dari identitas aplikasi.
+Radius sudut distandarisasi secara ketat menjadi 2 tingkatan:
 
-Prinsip animasi:
-
-**Smooth, cepat, subtle, premium, dan functional.**
-
-Animasi tidak boleh memperlambat pekerjaan pengguna.
-
----
-
-## 4.1 Tailoring Page Transition
-
-Animasi utama ketika berpindah halaman.
-
-Konsep:
-
-1. Muncul lembar kertas pola.
-2. Terdapat garis potong putus-putus.
-3. Gunting bergerak mengikuti garis.
-4. Kertas terpotong.
-5. Potongan kertas terbuka atau bergeser.
-6. Halaman baru muncul di balik kertas.
-7. Potongan kertas keluar dari viewport.
-
-Visual:
-
-```text
-Page A
-   ↓
-Pattern Paper
-   ↓
-- - - - - - - - -
-       ✂
-- - - - - - - - -
-   ↓
-Paper Cut
-   ↓
-Page B
-```
-
-Durasi ideal sekitar **400 sampai 700ms**.
-
-Gunakan transition yang lebih singkat untuk navigasi kecil agar tidak terasa mengganggu.
+1. **Kontrol Interaktif**: `rounded-lg` (8px)
+   - Tombol (Button).
+   - Input formulir, select box, search bar.
+   - Item menu aktif pada navigasi.
+   - Badge status (atau `rounded-full` untuk pill status).
+2. **Kontainer & Card**: `rounded-2xl` (16px) atau `rounded-xl` (12px)
+   - Kartu metrik / widget dashboard.
+   - Kontainer tabel utama.
+   - Modal dialog dan panel slide-over.
 
 ---
 
-## 4.2 Stitching Progress Animation
+### 5. Layout & Navigation Shell
 
-Progress pengerjaan menggunakan garis jahitan.
+#### Sidebar
+* **Background**: Putih (`bg-white border-r border-slate-200`).
+* **Brand Header**: Teks murni **TAILOR SYSTEM** (`text-sm font-bold tracking-tight text-slate-900`), tanpa ikon gunting dan tanpa tagline *"Digital Atelier"*.
+* **Menu Navigasi**: Urutan 9 menu tetap sama persis:
+  1. Dashboard
+  2. Pelanggan
+  3. Pesanan Jahit
+  4. Library Pola
+  5. Pengukuran
+  6. Inventory Bahan
+  7. Keuangan
+  8. Tutorial
+  9. Pengaturan
+* **Item Menu**:
+  - Menu Aktif: `bg-slate-100 text-slate-900 font-medium rounded-lg`.
+  - Menu Normal: `text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg`.
+* **Footer Sidebar**: Profil pengguna (avatar inisial monokrom + nama + email) dan tombol logout minimalis.
 
-Contoh:
-
-```text
-✓ Pesanan
-      • - • - •
-✓ Pengukuran
-      • - • - •
-● Pemotongan
-      • - • - •
-○ Penjahitan
-      • - • - •
-○ Finishing
-```
-
-Saat status berubah:
-
-* Node aktif muncul dengan animasi kecil.
-* Garis jahitan bergerak.
-* Status sebelumnya mendapatkan checkmark.
-* Progress terasa seperti sedang dijahit.
-
----
-
-## 4.3 Sewing Thread Button Interaction
-
-Untuk beberapa primary action, gunakan micro-interaction bertema benang.
-
-Contoh:
-
-* Tombol "Simpan" memiliki garis benang yang bergerak.
-* Setelah berhasil, garis benang menyelesaikan satu loop.
-* Tombol kemudian berubah menjadi state sukses.
-
-Digunakan secara terbatas pada action penting.
+#### Topbar
+* Putih (`bg-white border-b border-slate-200 h-16`).
+* Judul halaman di kiri (`text-lg font-bold text-slate-900`).
+* Ikon notifikasi pengingat di kanan dengan badge counter bulat merah minimalis.
 
 ---
 
-## 4.4 Pattern Upload Animation
+### 6. Template Standar Halaman Daftar (Unified List Pattern)
 
-Saat pengguna mengupload pola:
+Semua halaman daftar (Pelanggan, Pesanan, Inventori, Pola, Keuangan) mengadopsi struktur yang seragam:
 
-```text
-Upload Pattern
-      ↓
-Paper Sheet muncul
-      ↓
-Pattern preview ditempatkan
-      ↓
-Paper pinned / stitched
-      ↓
-Upload selesai
-```
-
-Efek dapat dibuat seperti lembar pola ditempel di papan kerja.
-
----
-
-## 4.5 Card Hover
-
-Pada desktop:
-
-* Card sedikit naik.
-* Shadow bertambah sangat halus.
-* Stitching line dapat bergerak beberapa pixel.
-* Foto pola dapat melakukan zoom sangat kecil.
-
-Jangan menggunakan efek hover yang berlebihan.
+1. **Header Halaman**:
+   - Judul halaman & deskripsi singkat.
+2. **Toolbar Card**:
+   - Pencarian di sisi kiri (`pl-9 pr-4 py-2 border-slate-200 rounded-lg text-sm`).
+   - Tombol filter / pengaturan di tengah/kanan.
+   - Tombol utama (+ Tambah Data) di ujung kanan (`bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-sm font-medium px-4 py-2`).
+3. **Table Container Card**:
+   - Kontainer putih `bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs`.
+   - Header tabel: `text-xs font-medium text-slate-500 bg-slate-50/75 border-b border-slate-200`.
+   - Baris tabel: `divide-y divide-slate-100`, hover effect `hover:bg-slate-50/60`, padding vertikal nyaman `py-3.5`.
+   - Badge status pastel dan tombol aksi ikon minimalis (`text-slate-400 hover:text-slate-700`).
+4. **Footer Pagination**:
+   - Info counter ("Menampilkan 1 - 10 dari 50 data") dan kontrol pagination rapi di bagian bawah kartu.
 
 ---
 
-## 4.6 Order Status Animation
+### 7. Form & Detail View Standards
 
-Ketika pesanan berubah status:
-
-```text
-Pemotongan
-    ↓
-Penjahitan
-```
-
-Node timeline berpindah dengan animasi smooth dan garis progress bergerak mengikuti status baru.
-
-Tujuannya membuat perubahan status terasa seperti sebuah proses fisik.
+* **Label Form**: `text-sm font-medium text-slate-700 mb-1.5` (sentence case).
+* **Input Text / Select**: `rounded-lg border-slate-200 focus:border-slate-900 focus:ring-1 focus:ring-slate-900 text-sm py-2 px-3`.
+* **Action Buttons**:
+  - Simpan / Konfirmasi: `bg-slate-900 text-white hover:bg-slate-800 rounded-lg px-4 py-2 text-sm font-medium`.
+  - Batal / Sekunder: `border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 rounded-lg px-4 py-2 text-sm font-medium`.
 
 ---
 
-## 4.7 Empty State Animation
-
-Empty state menggunakan ilustrasi tailor sederhana.
-
-Contoh:
-
-* Gunting membuka dan menutup secara halus.
-* Benang bergerak perlahan.
-* Kertas pola bergoyang sedikit.
-* Meteran melakukan gerakan kecil.
-* Mesin jahit memiliki motion loop kecil.
-
-Animasi harus sangat subtle.
-
----
-
-## 4.8 Modal / Detail Sheet Animation
-
-Modal detail dapat muncul seperti **lembar pola yang dibuka**.
-
-Efek:
-
-* Paper sheet slide-up.
-* Sedikit rotation correction.
-* Shadow muncul perlahan.
-* Stitching line mengikuti bagian tepi.
-
-Ini dapat digunakan untuk detail pola, detail pelanggan, atau detail pesanan.
-
----
-
-## 4.9 Notification Animation
-
-Reminder menggunakan micro-interaction kecil:
-
-* Icon gunting bergerak ketika ada deadline.
-* Bell memiliki subtle bounce.
-* Kartu reminder muncul dengan slide/fade.
-* Tidak menggunakan shake berlebihan.
-
----
-
-# 5. Motion Tokens
-
-Semua animasi harus menggunakan token terpusat agar motion konsisten di seluruh aplikasi.
-
-### Duration
-
-| Token            |   Value | Penggunaan                           |
-| ---------------- | ------: | ------------------------------------ |
-| `motion-instant` |   `0ms` | Reduced motion / state tanpa animasi |
-| `motion-fast`    | `120ms` | Hover, icon, micro interaction       |
-| `motion-normal`  | `200ms` | Button, card, tooltip                |
-| `motion-medium`  | `320ms` | Modal, dropdown, panel               |
-| `motion-slow`    | `450ms` | Content transition                   |
-| `motion-page`    | `600ms` | Tailoring page transition            |
-
-Page transition boleh berada pada rentang **400–700ms**, tetapi default project ditetapkan pada `600ms`.
-
-### Easing
-
-Gunakan easing yang konsisten:
-
-```text
-ease-standard
-cubic-bezier(0.2, 0.8, 0.2, 1)
-```
-
-Untuk elemen keluar:
-
-```text
-ease-out
-cubic-bezier(0.16, 1, 0.3, 1)
-```
-
-Untuk elemen masuk:
-
-```text
-ease-enter
-cubic-bezier(0.2, 0.8, 0.2, 1)
-```
-
-Hindari penggunaan banyak jenis easing yang tidak memiliki fungsi jelas.
-
-### Movement
-
-Gunakan jarak kecil:
-
-```text
-distance-xs = 4px
-distance-sm = 8px
-distance-md = 16px
-distance-lg = 24px
-```
-
-Sebisa mungkin jangan membuat UI berpindah terlalu jauh.
-
-### Scale
-
-Untuk hover atau active state:
-
-```text
-scale-hover = 1.01
-scale-press = 0.98
-```
-
-Scale harus sangat kecil agar UI tetap terasa profesional.
-
-### Stagger
-
-Untuk beberapa card yang muncul bersamaan:
-
-```text
-stagger-sm = 30ms
-stagger-md = 50ms
-```
-
-Gunakan maksimal sekitar 4–6 elemen sebelum animasi terasa terlalu lambat.
-
-### Motion Rule
-
-Prioritas motion:
-
-```text
-Function
-   ↓
-Feedback
-   ↓
-Navigation
-   ↓
-Decoration
-```
-
-Animasi fungsional selalu lebih penting daripada animasi dekoratif.
-
----
-
-# 6. Dashboard Motion
-
-Dashboard tidak boleh penuh animasi.
-
-Gunakan:
-
-* Counter number yang naik saat pertama kali membuka dashboard.
-* Progress bar dengan smooth fill.
-* Timeline stitching yang berjalan singkat.
-* Card muncul dengan stagger animation ringan.
-* Reminder muncul dengan fade/slide.
-
-Semua animasi harus berhenti setelah informasi terbaca.
-
----
-
-# 7. Pattern Library Motion
-
-Pattern Library menjadi salah satu halaman paling visual.
-
-Saat membuka pola:
-
-* Card sedikit expand.
-* Pattern image melakukan zoom kecil.
-* Detail ukuran muncul seperti lembar pola dibuka.
-* Size S/M/L/XL menggunakan transition smooth.
-* Stitching line muncul mengikuti perimeter pattern.
-
----
-
-# 8. Accessibility Rules
-
-Desain harus menargetkan **WCAG 2.2 Level AA** untuk bagian yang relevan.
-
-### 8.1 Reduced Motion
-
-Semua motion non-esensial harus menghormati preferensi pengguna `prefers-reduced-motion`.
-
-Ketika pengguna mengaktifkan reduced motion:
-
-* Page transition gunting/kertas dinonaktifkan.
-* Parallax dinonaktifkan.
-* Gerakan dekoratif dinonaktifkan.
-* Card hover hanya menggunakan perubahan warna/border/shadow.
-* Progress menggunakan perubahan state tanpa gerakan panjang.
-* Fade singkat masih boleh digunakan bila tidak menimbulkan motion yang berarti.
-
-W3C secara khusus merekomendasikan dukungan terhadap preferensi reduced motion untuk mengurangi efek yang dapat mengganggu atau memicu reaksi pada pengguna tertentu.
-
-Contoh prinsip implementasi:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  /* Disable non-essential motion */
-}
-```
-
-### 8.2 Contrast
-
-Target minimum:
-
-* Text normal: **4.5:1**
-* Large text: **3:1**
-* UI component dan graphical indicator penting: **3:1**
-
-Rasio tersebut mengikuti kriteria WCAG 2.2 untuk contrast dan non-text contrast.
-
-Warna status tidak boleh menjadi satu-satunya cara untuk menyampaikan informasi.
-
-Contoh:
-
-```text
-🟢 Selesai
-🟡 Menunggu
-🔴 Terlambat
-```
-
-Jangan hanya:
-
-```text
-Hijau
-Kuning
-Merah
-```
-
-Gunakan kombinasi **warna + icon + text**.
-
-### 8.3 Keyboard Navigation
-
-Semua fungsi utama harus dapat digunakan menggunakan keyboard:
-
-* Sidebar.
-* Button.
-* Link.
-* Form.
-* Modal.
-* Dropdown.
-* Table.
-* Search.
-* Filter.
-
-Jangan membuat interaksi yang hanya dapat dilakukan dengan mouse.
-
-### 8.4 Focus State
-
-Setiap interactive element harus memiliki visible focus state.
-
-Contoh:
-
-```text
-┌───────────────────────┐
-│  + Pesanan Baru       │
-└───────────────────────┘
-       ↑
-  visible focus
-```
-
-Focus indicator tidak boleh hilang hanya karena desain ingin terlihat minimalis. WCAG 2.2 juga memiliki kriteria khusus mengenai focus appearance dan focus visibility.
-
-### 8.5 Target Size
-
-Interactive target minimal:
-
-```text
-24 × 24 CSS px
-```
-
-Untuk kenyamanan penggunaan sehari-hari, terutama pada mobile, lebih baik menggunakan target sekitar:
-
-```text
-40–48px
-```
-
-WCAG 2.2 menetapkan minimum 24×24 CSS px untuk target pointer dengan beberapa pengecualian.
-
-### 8.6 Jangan Mengandalkan Hover
-
-Informasi penting tidak boleh hanya tersedia ketika hover.
-
-Contoh buruk:
-
-```text
-Hover → muncul status pesanan
-```
-
-Status juga harus tersedia melalui:
-
-* Text.
-* Icon.
-* Visible state.
-* Focus.
-* Tap pada mobile.
-
-### 8.7 Animation Safety
-
-Hindari:
-
-* Flashing.
-* Rapid blinking.
-* Shake berlebihan.
-* Zoom ekstrem.
-* Gerakan besar secara tiba-tiba.
-
-Konten bergerak otomatis juga harus memiliki mekanisme pause/stop ketika memenuhi kondisi yang relevan. WCAG 2.2 memiliki aturan khusus untuk moving, blinking, scrolling, dan auto-updating content.
-
-### 8.8 Form Accessibility
-
-Semua form harus memiliki:
-
-* Label yang jelas.
-* Error message yang menjelaskan masalah.
-* Required state yang jelas.
-* Focus berpindah secara logis.
-* Tidak hanya menggunakan placeholder sebagai label.
-
-Contoh:
-
-```text
-Nama Pelanggan *
-[________________]
-
-Nomor Telepon *
-[________________]
-
-✓ Data berhasil disimpan
-```
-
-### 8.9 Responsive Accessibility
-
-Web harus tetap usable pada:
-
-* Desktop.
-* Laptop.
-* Tablet.
-* Mobile browser.
-
-Konten tidak boleh hilang hanya karena viewport kecil.
-
-### 8.10 Decorative Elements
-
-Elemen seperti:
-
-* Gunting.
-* Garis jahitan.
-* Pattern.
-* Kain.
-* Benang.
-
-yang hanya berfungsi sebagai dekorasi harus tidak mengganggu screen reader.
-
-Dekorasi tidak boleh menjadi satu-satunya penyampai informasi penting.
-
----
-
-# 9. UI Style
-
-Gunakan:
-
-* Radius sekitar `10px` sampai `16px`.
-* Border tipis.
-* Shadow lembut.
-* Banyak whitespace.
-* Icon rounded dan konsisten.
-* Typography modern.
-* Background ivory.
-* Surface putih.
-* Primary dark olive atau charcoal.
-
-UI harus tetap terasa seperti software profesional walaupun memiliki banyak elemen tailoring.
-
----
-
-# 10. Typography
-
-### Heading
-
-* Manrope
-* Plus Jakarta Sans
-
-### Body
-
-* Inter
-* DM Sans
-
-Heading dapat menggunakan weight lebih tegas, sedangkan body tetap sederhana dan mudah dibaca.
-
-Pastikan teks tetap dapat diperbesar tanpa kehilangan konten atau fungsi. WCAG 2.2 Level AA mengharuskan teks dapat diperbesar hingga 200% tanpa kehilangan konten atau fungsionalitas, dengan pengecualian tertentu.
-
----
-
-# 11. Overall Visual Identity
-
-Ketika pertama kali membuka aplikasi, pengguna harus merasakan:
-
-**Professional + Warm + Modern + Tailoring**
-
-Identitas tailoring muncul melalui:
-
-* Stitching line.
-* Pattern paper.
-* Gunting.
-* Benang.
-* Kain.
-* Meteran.
-* Pattern illustration.
-* Tailoring motion.
-
-Bukan melalui dekorasi yang memenuhi halaman.
-
-Target akhirnya:
-
-**Aplikasi management profesional yang terasa seperti meja kerja digital seorang penjahit.**
-
-Semua visual, motion, dan interaksi harus tetap mendukung tujuan utama aplikasi:
-
-**membantu penjahit menyelesaikan pekerjaan dengan cepat, jelas, dan nyaman.**
+### 8. Motion & Micro-interactions
+
+* Durasi transisi cepat: `150ms` sampai `200ms` (`ease-out`).
+* Menghormati `prefers-reduced-motion`.
+* Animasi hanya untuk feedback fungsional (dropdown buka-tutup, modal fade-in, hover feedback). Tidak ada animasi pemotongan kertas atau benang dekoratif.

@@ -35,7 +35,7 @@ class AuthTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Tailor Management System');
-        $response->assertSee('Masuk ke Atelier');
+        $response->assertSee('Masuk');
     }
 
     /**

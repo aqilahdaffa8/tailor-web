@@ -4,18 +4,18 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\JenisJasaController;
-use App\Http\Controllers\Api\KeuanganController;
 use App\Http\Controllers\Api\KategoriController;
+use App\Http\Controllers\Api\KeuanganController;
 use App\Http\Controllers\Api\PelangganController;
 use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\PengaturanController;
 use App\Http\Controllers\Api\PengeluaranController;
-use App\Http\Controllers\Api\ReminderController;
-use App\Http\Controllers\Api\TutorialController;
 use App\Http\Controllers\Api\PengukuranController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\PesananItemController;
 use App\Http\Controllers\Api\PolaController;
+use App\Http\Controllers\Api\ReminderController;
+use App\Http\Controllers\Api\TutorialController;
 use Illuminate\Support\Facades\Route;
 
 /*

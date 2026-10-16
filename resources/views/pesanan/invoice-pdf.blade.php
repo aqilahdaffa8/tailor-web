@@ -5,25 +5,25 @@
     <title>Invoice {{ $pesanan->nomor_pesanan }}</title>
     <style>
         @page { margin: 36px 40px; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #29302D; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 11px; color: #18181B; }
         table { width: 100%; border-collapse: collapse; }
-        .muted { color: #9A816B; }
+        .muted { color: #71717A; }
         .kecil { font-size: 9px; }
         .kanan { text-align: right; }
-        .judul { font-size: 22px; font-weight: bold; color: #29302D; }
-        .invoice { font-size: 18px; font-weight: bold; color: #A8754F; letter-spacing: 3px; }
-        .kop td { vertical-align: top; padding-bottom: 14px; border-bottom: 2px solid #29302D; }
-        .label { font-size: 9px; font-weight: bold; text-transform: uppercase; color: #9A816B; letter-spacing: 1px; }
-        .item th { background: #F7F4EE; border-top: 1px solid #E7DED2; border-bottom: 1px solid #E7DED2; padding: 7px 8px; font-size: 9px; text-transform: uppercase; text-align: left; color: #38443D; }
-        .item td { padding: 8px; border-bottom: 1px solid #E7DED2; vertical-align: top; }
+        .judul { font-size: 20px; font-weight: bold; color: #18181B; }
+        .invoice { font-size: 18px; font-weight: bold; color: #18181B; letter-spacing: 2px; }
+        .kop td { vertical-align: top; padding-bottom: 14px; border-bottom: 2px solid #18181B; }
+        .label { font-size: 9px; font-weight: bold; text-transform: uppercase; color: #71717A; letter-spacing: 0.5px; }
+        .item th { background: #F4F4F5; border-top: 1px solid #E4E4E7; border-bottom: 1px solid #E4E4E7; padding: 7px 8px; font-size: 9px; text-transform: uppercase; text-align: left; color: #3F3F46; }
+        .item td { padding: 8px; border-bottom: 1px solid #E4E4E7; vertical-align: top; }
         .total td { padding: 4px 0; }
-        .total .garis td { border-top: 2px solid #29302D; padding-top: 7px; }
-        .cap { display: inline-block; border: 2px solid #9A816B; padding: 4px 14px; font-size: 13px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #9A816B; }
-        .cap-lunas { border-color: #6F8A78; color: #6F8A78; }
-        .cap-dp { border-color: #C49A52; color: #A8754F; }
-        .cap-belum { border-color: #B86B67; color: #B86B67; }
-        .bayar td { padding: 5px 6px 5px 0; border-bottom: 1px solid #E7DED2; font-size: 10px; }
-        .kaki { margin-top: 30px; padding-top: 12px; border-top: 1px dashed #9A816B; text-align: center; }
+        .total .garis td { border-top: 2px solid #18181B; padding-top: 7px; }
+        .cap { display: inline-block; border: 2px solid #71717A; padding: 4px 12px; font-size: 11px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #71717A; }
+        .cap-lunas { border-color: #059669; color: #059669; }
+        .cap-dp { border-color: #D97706; color: #D97706; }
+        .cap-belum { border-color: #E11D48; color: #E11D48; }
+        .bayar td { padding: 5px 6px 5px 0; border-bottom: 1px solid #E4E4E7; font-size: 10px; }
+        .kaki { margin-top: 30px; padding-top: 12px; border-top: 1px solid #E4E4E7; text-align: center; }
     </style>
 </head>
 <body>
@@ -103,11 +103,11 @@
                     </tr>
                     <tr>
                         <td class="muted">Sudah dibayar</td>
-                        <td class="kanan" style="color: #6F8A78;">{{ $rupiah($ringkasan['total_dibayar']) }}</td>
+                        <td class="kanan" style="color: #059669;">{{ $rupiah($ringkasan['total_dibayar']) }}</td>
                     </tr>
                     <tr class="garis">
                         <td><strong>Sisa pembayaran</strong></td>
-                        <td class="kanan" style="color: #A8754F;"><strong>{{ $rupiah($ringkasan['sisa']) }}</strong></td>
+                        <td class="kanan"><strong>{{ $rupiah($ringkasan['sisa']) }}</strong></td>
                     </tr>
                 </table>
             </td>
