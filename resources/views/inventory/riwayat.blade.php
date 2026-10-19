@@ -64,7 +64,7 @@
             </div>
         @else
             <div class="overflow-x-auto">
-                <table class="w-full text-xs">
+                <table class="w-full text-xs table-mobile-10">
                     <thead>
                         <tr class="bg-zinc-50 border-b border-zinc-200 text-xs font-semibold text-zinc-700 uppercase tracking-wider">
                             <th class="text-left px-5 py-3">Tanggal & Waktu</th>

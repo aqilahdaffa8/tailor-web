@@ -92,7 +92,7 @@
             </div>
         @else
             <div class="overflow-x-auto">
-                <table class="w-full text-sm">
+                <table class="w-full text-sm table-mobile-10">
                     <thead>
                         <tr class="border-b border-zinc-200 bg-zinc-50/80">
                             <th class="text-left px-6 py-3.5 text-xs font-medium text-zinc-500">Nomor Pesanan</th>

@@ -4,29 +4,29 @@
     </x-slot>
 
     <!-- Welcome Hero Card -->
-    <div class="relative bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 overflow-hidden mb-8 shadow-2xs">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+    <div class="relative bg-white rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-zinc-200 overflow-hidden mb-5 sm:mb-8 shadow-2xs">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 relative z-10">
             <div>
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-zinc-100 text-zinc-700 border border-zinc-200 mb-3">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[11px] sm:text-xs font-medium bg-zinc-100 text-zinc-700 border border-zinc-200 mb-2 sm:mb-3">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Sistem Aktif
                 </span>
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900">
+                <h2 class="text-xl sm:text-3xl font-bold tracking-tight text-zinc-900">
                     Selamat Datang, {{ auth()->user()->name }}!
                 </h2>
-                <p class="mt-2 text-sm text-zinc-500 max-w-xl leading-relaxed">
+                <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-zinc-500 max-w-xl leading-relaxed">
                     Pantau pesanan, pembayaran, dan stok bahan Anda dalam satu tampilan. Data diperbarui otomatis setiap satu menit.
                 </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                 <a href="{{ route('pelanggan.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 text-sm font-medium transition-colors">
+                   class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 text-xs sm:text-sm font-medium transition-colors">
                     Tambah Pelanggan
                 </a>
                 <a href="{{ route('pesanan.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium transition-colors shadow-2xs">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs sm:text-sm font-medium transition-colors shadow-2xs">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     <span>Buat Pesanan Baru</span>
