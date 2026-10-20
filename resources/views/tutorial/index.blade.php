@@ -68,7 +68,7 @@
                 <a href="{{ route('tutorial.show', $item) }}"
                    class="bg-white rounded-2xl border border-zinc-200 p-5 hover:border-zinc-400 transition-colors flex flex-col shadow-xs">
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider truncate">{{ $item->kategori }}</span>
+                        <span class="text-xs font-medium text-zinc-500 uppercase tracking-wider truncate">{{ $item->kategoriTutorial?->nama_kategori ?? $item->kategori }}</span>
                         <span class="px-2 py-0.5 rounded-full text-xs font-medium shrink-0 {{ $warnaTipe[$item->tipe] }}">{{ $labelTipe[$item->tipe] }}</span>
                     </div>
                     <h3 class="font-semibold text-sm text-zinc-900">{{ $item->judul }}</h3>

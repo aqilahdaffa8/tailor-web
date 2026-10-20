@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\KategoriTutorial;
 use App\Models\Tutorial;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -22,7 +23,20 @@ class TutorialService
     public function daftar(?string $kategori = null, ?string $tipe = null, ?string $search = null, int $perPage = 12): LengthAwarePaginator
     {
         return Tutorial::query()
-            ->when($kategori, fn ($query, string $kategori) => $query->where('kategori', $kategori))
+            ->with('kategoriTutorial')
+            ->when($kategori, function ($query, string $kategori) {
+                if (is_numeric($kategori)) {
+                    $query->where(function ($q) use ($kategori) {
+                        $q->where('kategori_tutorial_id', (int) $kategori)
+                            ->orWhere('kategori', $kategori);
+                    });
+                } else {
+                    $query->where(function ($q) use ($kategori) {
+                        $q->where('kategori', $kategori)
+                            ->orWhereHas('kategoriTutorial', fn ($sub) => $sub->where('nama_kategori', $kategori));
+                    });
+                }
+            })
             ->when($tipe, fn ($query, string $tipe) => $query->where('tipe', $tipe))
             ->when($search, fn ($query, string $search) => $query->where(
                 fn ($kondisi) => $kondisi->where('judul', 'like', "%{$search}%")->orWhere('konten', 'like', "%{$search}%")
@@ -33,13 +47,26 @@ class TutorialService
     }
 
     /**
-     * Daftar kategori yang sudah dipakai, urut abjad.
+     * Daftar nama kategori yang sudah dipakai, urut abjad.
      *
      * @return Collection<int, string>
      */
     public function daftarKategori(): Collection
     {
-        return Tutorial::query()->select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
+        $dariMaster = KategoriTutorial::orderBy('nama_kategori')->pluck('nama_kategori');
+        $dariTutorial = Tutorial::query()->select('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
+
+        return $dariMaster->merge($dariTutorial)->unique()->sort()->values();
+    }
+
+    /**
+     * Daftar seluruh model KategoriTutorial untuk kebutuhan dropdown form & master data.
+     *
+     * @return Collection<int, KategoriTutorial>
+     */
+    public function daftarKategoriModel(): Collection
+    {
+        return KategoriTutorial::withCount('tutorial')->orderBy('nama_kategori')->get();
     }
 
     /**
@@ -74,9 +101,26 @@ class TutorialService
     {
         $konten = isset($data['konten']) && trim((string) $data['konten']) !== '' ? $data['konten'] : null;
 
+        $kategoriNama = isset($data['kategori']) ? trim((string) $data['kategori']) : '';
+        $kategoriId = isset($data['kategori_tutorial_id']) && $data['kategori_tutorial_id'] ? (int) $data['kategori_tutorial_id'] : null;
+
+        if ($kategoriId) {
+            $katModel = KategoriTutorial::find($kategoriId);
+            if ($katModel) {
+                $kategoriNama = $katModel->nama_kategori;
+            }
+        } elseif ($kategoriNama !== '') {
+            $katModel = KategoriTutorial::firstOrCreate(['nama_kategori' => $kategoriNama]);
+            $kategoriId = $katModel->id;
+        } elseif ($lama) {
+            $kategoriId = $lama->kategori_tutorial_id;
+            $kategoriNama = $lama->kategori;
+        }
+
         return [
             'judul' => trim((string) $data['judul']),
-            'kategori' => trim((string) $data['kategori']),
+            'kategori' => $kategoriNama,
+            'kategori_tutorial_id' => $kategoriId,
             'tipe' => $data['tipe'],
             'konten' => $konten,
             'file_or_url' => $this->tentukanFileOrUrl($data['tipe'], $data, $lama),

@@ -35,6 +35,12 @@
                 Kategori Pengeluaran
             </button>
             <button type="button"
+                    @click="activeTab = 'tutorial'"
+                    :class="activeTab === 'tutorial' ? 'bg-zinc-900 text-white shadow-xs' : 'bg-white text-zinc-600 hover:text-zinc-900 border border-zinc-200'"
+                    class="px-3.5 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer shrink-0">
+                Kategori Tutorial
+            </button>
+            <button type="button"
                     @click="activeTab = 'profil'"
                     :class="activeTab === 'profil' ? 'bg-zinc-900 text-white shadow-xs' : 'bg-white text-zinc-600 hover:text-zinc-900 border border-zinc-200'"
                     class="px-3.5 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer shrink-0">
@@ -282,7 +288,39 @@
             </div>
         </div>
 
-        <!-- TAB 5: PROFIL USAHA & INVOICE -->
+        <!-- TAB 5: KATEGORI TUTORIAL -->
+        <div x-show="activeTab === 'tutorial'" class="space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-xs">
+                <h3 class="font-semibold text-base text-zinc-900 mb-1">Kategori Tutorial & Panduan</h3>
+                <p class="text-xs text-zinc-500 mb-6">Mengelompokkan panduan jahit, video teknik, dan SOP di Library Tutorial.</p>
+
+                <form action="{{ route('pengaturan.tutorial.store') }}" method="POST" class="flex gap-3 mb-6 max-w-xl">
+                    @csrf
+                    <input type="text" name="nama_kategori" required placeholder="Nama kategori tutorial baru..." class="{{ $inputClass }}">
+                    <button type="submit" class="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium shadow-xs shrink-0 cursor-pointer">
+                        + Tambah Kategori
+                    </button>
+                </form>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    @foreach ($kategoriTutorial as $tut)
+                        <div class="flex items-center justify-between p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
+                            <div>
+                                <span class="font-medium text-sm text-zinc-900">{{ $tut->nama_kategori }}</span>
+                                <span class="text-xs text-zinc-500 block">({{ $tut->tutorial_count }} tutorial)</span>
+                            </div>
+                            <form action="{{ route('pengaturan.tutorial.destroy', $tut->id) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-1 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer">✕</button>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: PROFIL USAHA & INVOICE -->
         <div x-show="activeTab === 'profil'" class="space-y-6">
             <div class="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-xs max-w-2xl">
                 <h3 class="font-semibold text-base text-zinc-900 mb-1">Informasi Usaha & Format Invoice</h3>

@@ -6,6 +6,7 @@ use App\Models\JenisJasa;
 use App\Models\KategoriBahan;
 use App\Models\KategoriPengeluaran;
 use App\Models\KategoriPola;
+use App\Models\KategoriTutorial;
 use App\Models\Pengaturan;
 use App\Models\TemplateTahapan;
 use Illuminate\Database\Eloquent\Collection;
@@ -141,6 +142,22 @@ class MasterDataService
     public function deleteKategoriPengeluaran(int $id): bool
     {
         return (bool) KategoriPengeluaran::destroy($id);
+    }
+
+    // --- Kategori Tutorial ---
+    public function getAllKategoriTutorial(): Collection
+    {
+        return KategoriTutorial::withCount('tutorial')->orderBy('nama_kategori')->get();
+    }
+
+    public function createKategoriTutorial(array $data): KategoriTutorial
+    {
+        return KategoriTutorial::create($data);
+    }
+
+    public function deleteKategoriTutorial(int $id): bool
+    {
+        return (bool) KategoriTutorial::destroy($id);
     }
 
     // --- Pengaturan Profil Usaha & Invoice ---

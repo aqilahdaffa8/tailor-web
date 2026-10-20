@@ -48,6 +48,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('kategori-pengeluaran', [KategoriController::class, 'pengeluaranStore']);
         Route::delete('kategori-pengeluaran/{id}', [KategoriController::class, 'pengeluaranDestroy']);
 
+        Route::get('kategori-tutorial', [KategoriController::class, 'tutorialIndex']);
+        Route::post('kategori-tutorial', [KategoriController::class, 'tutorialStore']);
+        Route::delete('kategori-tutorial/{id}', [KategoriController::class, 'tutorialDestroy']);
+
         Route::get('pengaturan', [PengaturanController::class, 'getProfil']);
         Route::put('pengaturan', [PengaturanController::class, 'updateProfil']);
     });

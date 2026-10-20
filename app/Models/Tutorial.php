@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
 class Tutorial extends Model
@@ -20,10 +21,19 @@ class Tutorial extends Model
     protected $fillable = [
         'judul',
         'kategori',
+        'kategori_tutorial_id',
         'tipe',
         'konten',
         'file_or_url',
     ];
+
+    /**
+     * @return BelongsTo<KategoriTutorial, $this>
+     */
+    public function kategoriTutorial(): BelongsTo
+    {
+        return $this->belongsTo(KategoriTutorial::class, 'kategori_tutorial_id');
+    }
 
     /**
      * @var array<int, string>

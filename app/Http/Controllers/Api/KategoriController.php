@@ -102,4 +102,34 @@ class KategoriController extends Controller
             'message' => 'Kategori pengeluaran berhasil dihapus.',
         ]);
     }
+
+    // --- Kategori Tutorial ---
+    public function tutorialIndex(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => $this->masterDataService->getAllKategoriTutorial(),
+        ]);
+    }
+
+    public function tutorialStore(StoreKategoriRequest $request): JsonResponse
+    {
+        $kategori = $this->masterDataService->createKategoriTutorial($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori tutorial berhasil ditambahkan.',
+            'data' => $kategori,
+        ], 201);
+    }
+
+    public function tutorialDestroy(int $id): JsonResponse
+    {
+        $this->masterDataService->deleteKategoriTutorial($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori tutorial berhasil dihapus.',
+        ]);
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\JenisJasa;
 use App\Models\KategoriBahan;
 use App\Models\KategoriPengeluaran;
 use App\Models\KategoriPola;
+use App\Models\KategoriTutorial;
 use App\Models\Pengaturan;
 use App\Models\TemplateTahapan;
 use App\Models\User;
@@ -135,7 +136,13 @@ class TailorSystemSeeder extends Seeder
             KategoriPengeluaran::firstOrCreate(['nama_kategori' => $kat]);
         }
 
-        // 6. Pengaturan Profil Usaha & Invoice
+        // 6. Kategori Tutorial
+        $kategoriTutorial = ['Teknik Menjahit', 'Pembuatan Pola', 'Pengukuran', 'Perawatan Mesin', 'Finishing & Permak', 'Lain-lain'];
+        foreach ($kategoriTutorial as $kat) {
+            KategoriTutorial::firstOrCreate(['nama_kategori' => $kat]);
+        }
+
+        // 7. Pengaturan Profil Usaha & Invoice
         Pengaturan::firstOrCreate(
             ['key' => 'profil_usaha'],
             [

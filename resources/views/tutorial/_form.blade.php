@@ -23,16 +23,33 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {{-- Kategori --}}
         <div>
-            <label class="block text-xs font-medium text-zinc-700 mb-1">
-                Kategori <span class="text-rose-500">*</span>
-            </label>
-            <input type="text" name="kategori" value="{{ old('kategori', $t?->kategori) }}" required maxlength="50"
-                   list="daftar-kategori" placeholder="Contoh: Pengukuran" class="{{ $inputClass }}">
-            <datalist id="daftar-kategori">
-                @foreach($kategoriList as $kat)
-                    <option value="{{ $kat }}"></option>
-                @endforeach
-            </datalist>
+            <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-medium text-zinc-700">
+                    Kategori <span class="text-rose-500">*</span>
+                </label>
+                <a href="{{ route('pengaturan.index', ['tab' => 'tutorial']) }}" target="_blank" class="text-xs text-zinc-500 hover:text-zinc-900 transition-colors">
+                    + Kelola Kategori
+                </a>
+            </div>
+            @if(isset($kategoriModelList) && $kategoriModelList->isNotEmpty())
+                <select name="kategori_tutorial_id" required class="{{ $inputClass }}">
+                    <option value="">Pilih Kategori Tutorial...</option>
+                    @foreach($kategoriModelList as $kat)
+                        <option value="{{ $kat->id }}" @selected(old('kategori_tutorial_id', $t?->kategori_tutorial_id) == $kat->id || (!old('kategori_tutorial_id') && !$t?->kategori_tutorial_id && old('kategori', $t?->kategori) == $kat->nama_kategori))>
+                            {{ $kat->nama_kategori }}
+                        </option>
+                    @endforeach
+                </select>
+            @else
+                <input type="text" name="kategori" value="{{ old('kategori', $t?->kategori) }}" required maxlength="50"
+                       list="daftar-kategori" placeholder="Contoh: Pengukuran" class="{{ $inputClass }}">
+                <datalist id="daftar-kategori">
+                    @foreach($kategoriList as $kat)
+                        <option value="{{ $kat }}"></option>
+                    @endforeach
+                </datalist>
+            @endif
+            @error('kategori_tutorial_id') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
             @error('kategori') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
         </div>
 

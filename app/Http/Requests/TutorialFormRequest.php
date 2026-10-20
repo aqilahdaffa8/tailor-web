@@ -28,7 +28,8 @@ abstract class TutorialFormRequest extends FormRequest
     {
         return [
             'judul' => ['required', 'string', 'max:255'],
-            'kategori' => ['required', 'string', 'max:50'],
+            'kategori' => ['nullable', 'string', 'max:50', 'required_without:kategori_tutorial_id'],
+            'kategori_tutorial_id' => ['nullable', 'integer', 'exists:kategori_tutorial,id', 'required_without:kategori'],
             'tipe' => ['required', Rule::in(Tutorial::TIPE)],
             'konten' => [
                 Rule::requiredIf(fn () => $this->input('tipe') === 'artikel'),

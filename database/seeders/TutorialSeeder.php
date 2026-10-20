@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\KategoriTutorial;
 use App\Models\Tutorial;
 use Illuminate\Database\Seeder;
 
@@ -26,9 +27,10 @@ class TutorialSeeder extends Seeder
         ];
 
         foreach ($contoh as $data) {
+            $kat = KategoriTutorial::firstOrCreate(['nama_kategori' => $data['kategori']]);
             Tutorial::firstOrCreate(
                 ['judul' => $data['judul']],
-                $data + ['tipe' => 'artikel', 'file_or_url' => null],
+                $data + ['kategori_tutorial_id' => $kat->id, 'tipe' => 'artikel', 'file_or_url' => null],
             );
         }
     }

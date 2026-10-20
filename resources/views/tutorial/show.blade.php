@@ -19,7 +19,7 @@
             <div class="flex items-start justify-between gap-4">
                 <div>
                     <p class="text-xs font-medium text-zinc-500 uppercase tracking-wider">
-                        {{ $tutorial->kategori }} &middot; {{ $labelTipe[$tutorial->tipe] }}
+                        {{ $tutorial->kategoriTutorial?->nama_kategori ?? $tutorial->kategori }} &middot; {{ $labelTipe[$tutorial->tipe] }}
                     </p>
                     <h2 class="font-bold text-xl text-zinc-900 mt-1">{{ $tutorial->judul }}</h2>
                 </div>

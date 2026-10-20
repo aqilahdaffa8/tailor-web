@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/kategori-pengeluaran', [PengaturanController::class, 'storeKategoriPengeluaran'])->name('pengeluaran.store');
         Route::delete('/kategori-pengeluaran/{id}', [PengaturanController::class, 'deleteKategoriPengeluaran'])->name('pengeluaran.destroy');
 
+        Route::post('/kategori-tutorial', [PengaturanController::class, 'storeKategoriTutorial'])->name('tutorial.store');
+        Route::delete('/kategori-tutorial/{id}', [PengaturanController::class, 'deleteKategoriTutorial'])->name('tutorial.destroy');
+
         Route::put('/profil', [PengaturanController::class, 'updateProfil'])->name('profil.update');
     });
 

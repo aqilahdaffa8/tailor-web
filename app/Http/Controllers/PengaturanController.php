@@ -24,6 +24,7 @@ class PengaturanController extends Controller
             'kategoriPola' => $this->masterDataService->getAllKategoriPola(),
             'kategoriBahan' => $this->masterDataService->getAllKategoriBahan(),
             'kategoriPengeluaran' => $this->masterDataService->getAllKategoriPengeluaran(),
+            'kategoriTutorial' => $this->masterDataService->getAllKategoriTutorial(),
             'profil' => $this->masterDataService->getProfilUsaha(),
         ]);
     }
@@ -98,6 +99,22 @@ class PengaturanController extends Controller
 
         return redirect()->route('pengaturan.index', ['tab' => 'pengeluaran'])
             ->with('success', 'Kategori pengeluaran berhasil dihapus.');
+    }
+
+    public function storeKategoriTutorial(StoreKategoriRequest $request): RedirectResponse
+    {
+        $this->masterDataService->createKategoriTutorial($request->validated());
+
+        return redirect()->route('pengaturan.index', ['tab' => 'tutorial'])
+            ->with('success', 'Kategori tutorial berhasil ditambahkan.');
+    }
+
+    public function deleteKategoriTutorial(int $id): RedirectResponse
+    {
+        $this->masterDataService->deleteKategoriTutorial($id);
+
+        return redirect()->route('pengaturan.index', ['tab' => 'tutorial'])
+            ->with('success', 'Kategori tutorial berhasil dihapus.');
     }
 
     public function updateProfil(UpdateProfilUsahaRequest $request): RedirectResponse

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\JenisJasa;
+use App\Models\KategoriTutorial;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -143,5 +144,53 @@ class PengaturanTest extends TestCase
 
         $update->assertStatus(200)
             ->assertJsonPath('data.nama_usaha', 'Atelier API Mobile');
+    }
+
+    /**
+     * Web: Tambah dan Hapus Kategori Tutorial
+     */
+    public function test_web_crud_kategori_tutorial(): void
+    {
+        $response = $this->actingAs($this->user)->post('/pengaturan/kategori-tutorial', [
+            'nama_kategori' => 'Bordir & Sulam Pengujian',
+        ]);
+
+        $response->assertRedirect('/pengaturan?tab=tutorial');
+        $this->assertDatabaseHas('kategori_tutorial', [
+            'nama_kategori' => 'Bordir & Sulam Pengujian',
+        ]);
+
+        $kat = KategoriTutorial::where('nama_kategori', 'Bordir & Sulam Pengujian')->first();
+        $this->assertNotNull($kat);
+
+        $deleteResponse = $this->actingAs($this->user)->delete('/pengaturan/kategori-tutorial/'.$kat->id);
+        $deleteResponse->assertRedirect('/pengaturan?tab=tutorial');
+        $this->assertDatabaseMissing('kategori_tutorial', ['id' => $kat->id]);
+    }
+
+    /**
+     * Mobile API: CRUD Kategori Tutorial
+     */
+    public function test_api_crud_kategori_tutorial(): void
+    {
+        $token = $this->user->createToken('api-test')->plainTextToken;
+
+        // List
+        $list = $this->withHeader('Authorization', 'Bearer '.$token)
+            ->getJson('/api/master/kategori-tutorial');
+        $list->assertStatus(200)->assertJsonPath('success', true);
+
+        // Create
+        $create = $this->withHeader('Authorization', 'Bearer '.$token)
+            ->postJson('/api/master/kategori-tutorial', [
+                'nama_kategori' => 'Sulam Pita API Test',
+            ]);
+        $create->assertStatus(201)->assertJsonPath('success', true);
+        $katId = $create->json('data.id');
+
+        // Delete
+        $delete = $this->withHeader('Authorization', 'Bearer '.$token)
+            ->deleteJson('/api/master/kategori-tutorial/'.$katId);
+        $delete->assertStatus(200)->assertJsonPath('success', true);
     }
 }

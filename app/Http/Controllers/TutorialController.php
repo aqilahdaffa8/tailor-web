@@ -26,6 +26,7 @@ class TutorialController extends Controller
                 $request->input('search'),
             )->withQueryString(),
             'kategoriList' => $this->tutorialService->daftarKategori(),
+            'kategoriModelList' => $this->tutorialService->daftarKategoriModel(),
             'kategori' => $request->input('kategori'),
             'tipe' => $request->input('tipe'),
             'search' => $request->input('search'),
@@ -34,7 +35,10 @@ class TutorialController extends Controller
 
     public function create(): View
     {
-        return view('tutorial.create', ['kategoriList' => $this->tutorialService->daftarKategori()]);
+        return view('tutorial.create', [
+            'kategoriList' => $this->tutorialService->daftarKategori(),
+            'kategoriModelList' => $this->tutorialService->daftarKategoriModel(),
+        ]);
     }
 
     public function store(StoreTutorialRequest $request): RedirectResponse
@@ -55,6 +59,7 @@ class TutorialController extends Controller
         return view('tutorial.edit', [
             'tutorial' => $tutorial,
             'kategoriList' => $this->tutorialService->daftarKategori(),
+            'kategoriModelList' => $this->tutorialService->daftarKategoriModel(),
         ]);
     }
 
