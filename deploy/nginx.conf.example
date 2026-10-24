@@ -1,0 +1,84 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your-domain.com;
+
+    # Alihkan seluruh HTTP ke HTTPS di server produksi
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name your-domain.com;
+
+    # Path root wajib mengarah ke folder public aplikasi Laravel
+    root /var/www/tailor-web/public;
+    index index.php index.html;
+
+    charset utf-8;
+
+    # SSL Certificate (gunakan Let's Encrypt / Certbot)
+    # ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+    # ssl_protocols TLSv1.2 TLSv1.3;
+    # ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # Batas ukuran upload (disesuaikan dengan validasi Laravel: file pola & tutorial max 10MB, foto max 5MB)
+    client_max_body_size 20M;
+
+    # Header Keamanan Dasar
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+
+    # Log akses dan error
+    access_log /var/log/nginx/tailor-web_access.log;
+    error_log /var/log/nginx/tailor-web_error.log error;
+
+    # Routing Laravel utama
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    # Optimasi cache untuk aset statis (Vite build)
+    location ~* \.(ico|css|js|gif|jpe?g|png|webp|svg|woff|woff2|ttf|eot)$ {
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+        access_log off;
+    }
+
+    # Cegah eksekusi script PHP di dalam folder storage publik
+    location ~* ^/storage/.*\.php$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # Blokir akses ke file dan folder tersembunyi (.git, .env, .htaccess, dll), kecuali .well-known
+    location ~ /\.(?!well-known).* {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # Eksekusi PHP-FPM (PHP 8.3)
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+
+        # Menyembunyikan signature header PHP
+        fastcgi_hide_header X-Powered-By;
+
+        # Timeout FastCGI
+        fastcgi_connect_timeout 60;
+        fastcgi_send_timeout 180;
+        fastcgi_read_timeout 180;
+    }
+}

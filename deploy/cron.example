@@ -1,0 +1,8 @@
+# Crontab untuk Tailor Management System (tailor-web)
+# Pasang menggunakan perintah: crontab -e (di bawah user web server / non-root pengguna aplikasi, misal 'www-data' atau 'deploy')
+
+# 1. Laravel Scheduler (menjalankan reminder deadline, pesanan siap, stok menipis, dll. setiap menit)
+* * * * * cd /var/www/tailor-web && php artisan schedule:run >> /dev/null 2>&1
+
+# 2. Backup Otomatis Harian (dijalankan setiap hari pukul 02:00 dini hari)
+0 2 * * * /var/www/tailor-web/deploy/backup.sh >> /var/log/tailor-backup.log 2>&1

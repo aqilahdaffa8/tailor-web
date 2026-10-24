@@ -1,0 +1,27 @@
+# ==============================================================================
+# Catatan Status Antrean (Queue) Tailor Management System
+# ==============================================================================
+# Saat ini aplikasi Tailor Management System TIDAK MEMERLUKAN queue worker / supervisor.
+# Alasan teknis:
+# 1. Aplikasi tidak memiliki direktori maupun kelas Job (`app/Jobs/` tidak ada).
+# 2. Seluruh pemrosesan (pola, pesanan, inventaris, keuangan, dan reminder) berjalan
+#    secara sinkronus atau dikelola oleh Laravel Scheduler (`php artisan schedule:run`).
+# 3. Pada lingkungan produksi, konfigurasi default QUEUE_CONNECTION disetel ke `sync`.
+#
+# JIKA di masa mendatang ada fitur baru yang membutuhkan antrean asinkron
+# (misalnya pengiriman notifikasi email massal atau pemrosesan gambar/video di latar belakang),
+# ubah QUEUE_CONNECTION=database pada .env dan aktifkan konfigurasi supervisor di bawah ini:
+# ==============================================================================
+
+# [program:tailor-worker]
+# process_name=%(program_name)s_%(process_num)02d
+# command=php /var/www/tailor-web/artisan queue:work database --sleep=3 --tries=3 --max-time=3600
+# autostart=true
+# autorestart=true
+# stopasgroup=true
+# killasgroup=true
+# user=www-data
+# numprocs=1
+# redirect_stderr=true
+# stdout_logfile=/var/www/tailor-web/storage/logs/worker.log
+# stopwaitsecs=3600

@@ -1,0 +1,9 @@
+# Salin file ini ke ~/.my.cnf milik user yang menjalankan backup (atau letakkan di lokasi aman di VPS)
+# Pastikan izin file sangat ketat agar tidak terbaca oleh pengguna lain:
+#   chmod 600 ~/.my.cnf
+
+[client]
+host = 127.0.0.1
+port = 3306
+user = tailor_backup_user
+password = "your_strong_backup_password"
