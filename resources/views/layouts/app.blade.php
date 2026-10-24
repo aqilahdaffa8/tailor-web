@@ -32,7 +32,7 @@
 
         <!-- Sidebar Navigation (True Neutral Charcoal Zinc) -->
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-               class="fixed inset-y-0 left-0 z-50 w-64 bg-zinc-900 border-r border-zinc-800 flex flex-col transition-transform duration-200 ease-in-out">
+               class="fixed inset-y-0 left-0 z-50 w-64 bg-zinc-900 border-r border-zinc-800 flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out">
             <!-- Brand Header -->
             <div class="flex items-center justify-between px-6 h-16 border-b border-zinc-800 bg-zinc-900 shrink-0">
                 <a href="{{ route('dashboard') }}" class="font-bold text-base tracking-tight text-white hover:text-zinc-200 transition-colors">
