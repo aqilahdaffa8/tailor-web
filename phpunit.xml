@@ -23,7 +23,8 @@
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="BROADCAST_CONNECTION" value="null"/>
         <env name="CACHE_STORE" value="array"/>
-        <!-- Test butuh MySQL (trigger/function/procedure) dan memakai database dari .env. -->
+        <!-- Test butuh MySQL (trigger/function/procedure) dengan database terpisah -->
+        <env name="DB_DATABASE" value="tailor_web_test"/>
         <env name="DB_URL" value=""/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
