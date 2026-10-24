@@ -17,13 +17,11 @@ class AuthTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::firstOrCreate(
-            ['email' => 'testowner@tailor.test'],
-            [
-                'name' => 'Owner Test',
-                'password' => Hash::make('password123'),
-            ]
-        );
+        $this->user = User::factory()->create([
+            'email' => 'testowner@tailor.test',
+            'name' => 'Owner Test',
+            'password' => Hash::make('password123'),
+        ]);
     }
 
     /**

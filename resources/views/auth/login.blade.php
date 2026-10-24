@@ -119,16 +119,6 @@
                     </button>
                 </div>
             </form>
-
-            <!-- Demo Account Helper Box -->
-            <div class="mt-6 pt-5 border-t border-zinc-100 text-center">
-                <p class="text-xs text-zinc-500 mb-2 font-medium">Akun Pemilik (Seeded Default):</p>
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-xs text-zinc-700 font-mono">
-                    <span>owner@tailor.test</span>
-                    <span class="text-zinc-400">/</span>
-                    <span>password</span>
-                </div>
-            </div>
         </div>
     </div>
 </x-guest-layout>

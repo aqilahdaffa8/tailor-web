@@ -25,6 +25,7 @@ CREATE DATABASE tailor_web CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ```bash
 php artisan migrate --seed
+php artisan user:buat-owner
 php artisan storage:link
 npm install && npm run build
 ```
@@ -33,13 +34,26 @@ Jalankan: `composer run dev`.
 
 ## Test
 
+Buat database pengujian terpisah di MySQL:
+
+```sql
+CREATE DATABASE tailor_web_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Jalankan migrasi dan seed awal pada database pengujian:
+
+```bash
+DB_DATABASE=tailor_web_test php artisan migrate --seed
+```
+
+Lalu jalankan test:
+
 ```bash
 php artisan test
 ```
 
-Test berjalan di database yang sama dengan `.env` (belum ada database test terpisah) dan membutuhkan data seeder (`php artisan migrate --seed`).
+Konfigurasi pengujian menggunakan database terpisah (`tailor_web_test`) yang telah diatur pada `phpunit.xml`.
 Data yang dibuat test diberi awalan `ZZ-TEST-PESANAN` (atau periode Maret 2001 untuk test keuangan) dan dibersihkan otomatis.
-Jangan menjalankan test pada database produksi; setelah aplikasi live, sebaiknya pindah ke database test terpisah.
 
 ## Reminder (scheduler)
 

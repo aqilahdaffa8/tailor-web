@@ -9,9 +9,7 @@ use App\Models\KategoriPola;
 use App\Models\KategoriTutorial;
 use App\Models\Pengaturan;
 use App\Models\TemplateTahapan;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class TailorSystemSeeder extends Seeder
 {
@@ -20,16 +18,7 @@ class TailorSystemSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. User default (Owner)
-        User::firstOrCreate(
-            ['email' => 'owner@tailor.test'],
-            [
-                'name' => 'Pemilik Tailor',
-                'password' => Hash::make('password'),
-            ]
-        );
-
-        // 2. Jenis Jasa & Template Tahapan
+        // 1. Jenis Jasa & Template Tahapan
         $daftarJasa = [
             [
                 'nama' => 'Jahit Kemeja',
