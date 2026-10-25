@@ -132,7 +132,7 @@
                     {{-- Card Foto Tersimpan di Server (dengan Tombol X) --}}
                     <template x-if="hasFoto">
                         <div class="mb-3 relative rounded-xl overflow-hidden border border-zinc-200 max-w-xs bg-zinc-50 shadow-xs">
-                            <img src="{{ asset('storage/' . $polaDetail->foto_pola) }}" class="w-full h-44 object-cover">
+                            <img src="{{ $polaDetail->foto_pola_url ?? Storage::disk('public')->url($polaDetail->foto_pola) }}" class="w-full h-44 object-cover">
                             <button type="button"
                                     @click="hapusFotoSekarang()"
                                     :disabled="deletingFoto"

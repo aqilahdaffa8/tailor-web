@@ -259,8 +259,8 @@
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                                     @foreach($item->fotoReferensi as $foto)
                                         <div class="group relative rounded-xl overflow-hidden border border-zinc-200 bg-zinc-50 shadow-xs">
-                                            <a href="{{ asset('storage/'.$foto->path_foto) }}" target="_blank" rel="noopener">
-                                                <img src="{{ asset('storage/'.$foto->path_foto) }}" alt="{{ $foto->keterangan ?: 'Foto referensi' }}"
+                                            <a href="{{ $foto->foto_url ?? Storage::disk('public')->url($foto->path_foto) }}" target="_blank" rel="noopener">
+                                                <img src="{{ $foto->foto_url ?? Storage::disk('public')->url($foto->path_foto) }}" alt="{{ $foto->keterangan ?: 'Foto referensi' }}"
                                                      class="w-full h-28 object-cover">
                                             </a>
                                             @if($foto->keterangan)

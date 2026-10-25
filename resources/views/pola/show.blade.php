@@ -98,7 +98,7 @@
                         <div class="p-5 space-y-4">
                             @if($pola->foto_pola)
                                 <div class="rounded-xl overflow-hidden border border-zinc-200 bg-zinc-50">
-                                    <img src="{{ asset('storage/' . $pola->foto_pola) }}" 
+                                    <img src="{{ $pola->foto_pola_url ?? Storage::disk('public')->url($pola->foto_pola) }}" 
                                          alt="Foto Pola {{ $pola->size }}" 
                                          class="w-full h-44 object-cover">
                                 </div>
@@ -132,7 +132,7 @@
                     {{-- Card Footer: File Download Link --}}
                     @if($pola->file_pola)
                         <div class="p-4 border-t border-zinc-200 bg-zinc-50/40">
-                            <a href="{{ asset('storage/' . $pola->file_pola) }}" target="_blank"
+                            <a href="{{ $pola->file_pola_url ?? Storage::disk('public')->url($pola->file_pola) }}" target="_blank"
                                class="inline-flex items-center gap-2 text-xs font-medium text-zinc-900 hover:underline">
                                 <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
