@@ -14,9 +14,9 @@ class CronController extends Controller
      */
     public function reminder(Request $request): JsonResponse
     {
-        $expectedToken = config('services.cron.token', env('CRON_TOKEN'));
+        $expectedToken = config('services.cron_token');
 
-        // Jika env kosong atau null, selalu tolak demi keamanan
+        // Jika token kosong atau null di config, selalu tolak demi keamanan
         if (empty($expectedToken) || ! is_string($expectedToken)) {
             return response()->json([
                 'success' => false,

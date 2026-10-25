@@ -9,8 +9,7 @@ class CronWebhookTest extends TestCase
 {
     public function test_cron_webhook_ditolak_jika_env_cron_token_kosong(): void
     {
-        putenv('CRON_TOKEN=');
-        $_ENV['CRON_TOKEN'] = '';
+        config(['services.cron_token' => null]);
 
         $response = $this->postJson('/api/internal/cron/reminder', [], [
             'X-Cron-Token' => 'some-token',
@@ -25,8 +24,7 @@ class CronWebhookTest extends TestCase
 
     public function test_cron_webhook_ditolak_jika_token_salah(): void
     {
-        putenv('CRON_TOKEN=secret-cron-token-123');
-        $_ENV['CRON_TOKEN'] = 'secret-cron-token-123';
+        config(['services.cron_token' => 'secret-cron-token-123']);
 
         $response = $this->postJson('/api/internal/cron/reminder', [], [
             'X-Cron-Token' => 'token-yang-salah',
@@ -41,8 +39,7 @@ class CronWebhookTest extends TestCase
 
     public function test_cron_webhook_berhasil_dieksekusi_jika_token_valid(): void
     {
-        putenv('CRON_TOKEN=secret-cron-token-123');
-        $_ENV['CRON_TOKEN'] = 'secret-cron-token-123';
+        config(['services.cron_token' => 'secret-cron-token-123']);
 
         // Fake artisan call agar tidak perlu menyentuh database
         Artisan::shouldReceive('call')

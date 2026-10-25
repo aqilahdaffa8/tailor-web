@@ -3,33 +3,34 @@ services:
     name: tailor-web
     runtime: docker
     plan: free
+    region: singapore
     healthCheckPath: /up
     dockerfilePath: Dockerfile
     envVars:
       - key: APP_NAME
-        value: Tailor Management System
+        value: "Tailor Management System"
       - key: APP_ENV
-        value: production
+        value: "production"
       - key: APP_DEBUG
-        value: false
+        value: "false"
       - key: APP_LOCALE
-        value: id
+        value: "id"
       - key: SESSION_SECURE_COOKIE
-        value: true
+        value: "true"
       - key: APP_KEY
         sync: false
       - key: APP_URL
         sync: false
       - key: LOG_CHANNEL
-        value: stderr
+        value: "stderr"
       - key: TRUSTED_PROXIES
         value: "*"
       - key: DB_CONNECTION
-        value: mysql
+        value: "mysql"
       - key: DB_HOST
         sync: false
       - key: DB_PORT
-        value: "3306"
+        sync: false
       - key: DB_DATABASE
         sync: false
       - key: DB_USERNAME
@@ -39,13 +40,13 @@ services:
       - key: DB_SSL_CA_PEM
         sync: false
       - key: PUBLIC_DISK_DRIVER
-        value: s3
+        value: "s3"
       - key: AWS_ACCESS_KEY_ID
         sync: false
       - key: AWS_SECRET_ACCESS_KEY
         sync: false
       - key: AWS_DEFAULT_REGION
-        value: auto
+        value: "auto"
       - key: AWS_BUCKET
         sync: false
       - key: AWS_ENDPOINT
@@ -53,6 +54,6 @@ services:
       - key: AWS_URL
         sync: false
       - key: AWS_USE_PATH_STYLE_ENDPOINT
-        value: false
+        value: "false"
       - key: CRON_TOKEN
         sync: false
