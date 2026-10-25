@@ -67,7 +67,7 @@ Pengecekan reminder (deadline, terlambat, pembayaran, pesanan siap diambil, stok
 **Opsi 2 — Render Web Service (tanpa cron daemon):**
 Gunakan layanan cron eksternal gratis seperti [cron-job.org](https://cron-job.org):
 1. Buat cron job dengan metode `POST` ke URL:
-   `https://<nama-app>.onrender.com/internal/cron/reminder`
+   `https://<nama-app>.onrender.com/api/internal/cron/reminder`
 2. Tambahkan header request:
    `X-Cron-Token: <nilai-CRON_TOKEN-di-env-render>`
 3. Jadwalkan eksekusi harian (misal setiap hari pukul 07:00 WIB / 00:00 UTC).

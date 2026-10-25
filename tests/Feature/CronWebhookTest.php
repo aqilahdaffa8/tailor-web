@@ -12,7 +12,7 @@ class CronWebhookTest extends TestCase
         putenv('CRON_TOKEN=');
         $_ENV['CRON_TOKEN'] = '';
 
-        $response = $this->postJson('/internal/cron/reminder', [], [
+        $response = $this->postJson('/api/internal/cron/reminder', [], [
             'X-Cron-Token' => 'some-token',
         ]);
 
@@ -28,7 +28,7 @@ class CronWebhookTest extends TestCase
         putenv('CRON_TOKEN=secret-cron-token-123');
         $_ENV['CRON_TOKEN'] = 'secret-cron-token-123';
 
-        $response = $this->postJson('/internal/cron/reminder', [], [
+        $response = $this->postJson('/api/internal/cron/reminder', [], [
             'X-Cron-Token' => 'token-yang-salah',
         ]);
 
@@ -54,7 +54,7 @@ class CronWebhookTest extends TestCase
             ->once()
             ->andReturn('Reminder sinkronisasi selesai.');
 
-        $response = $this->postJson('/internal/cron/reminder', [], [
+        $response = $this->postJson('/api/internal/cron/reminder', [], [
             'X-Cron-Token' => 'secret-cron-token-123',
         ]);
 

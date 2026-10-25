@@ -3,7 +3,16 @@ set -e
 
 echo "==> Memulai inisialisasi kontainer tailor-web..."
 
-# 1. Database SSL CA dari environment variable DB_SSL_CA_PEM
+# 1. Pastikan direktori runtime dan storage ada
+echo "==> Memastikan hak akses storage dan bootstrap/cache..."
+mkdir -p /app/storage/framework/cache/data \
+         /app/storage/framework/sessions \
+         /app/storage/framework/views \
+         /app/storage/logs \
+         /app/bootstrap/cache
+
+# 2. Database SSL CA dari environment variable DB_SSL_CA_PEM
+# Wajib diekspor sebelum config:cache agar nilai MYSQL_ATTR_SSL_CA tercatat di cache
 if [ -n "$DB_SSL_CA_PEM" ]; then
     echo "==> Menulis sertifikat CA dari DB_SSL_CA_PEM..."
     CA_FILE="/app/storage/ca.pem"
@@ -11,14 +20,6 @@ if [ -n "$DB_SSL_CA_PEM" ]; then
     chmod 644 "$CA_FILE"
     export MYSQL_ATTR_SSL_CA="$CA_FILE"
 fi
-
-# 2. Pastikan permission direktori runtime
-echo "==> Memastikan hak akses storage dan bootstrap/cache..."
-mkdir -p /app/storage/framework/cache/data \
-         /app/storage/framework/sessions \
-         /app/storage/framework/views \
-         /app/storage/logs \
-         /app/bootstrap/cache
 
 chown -R www-data:www-data /app/storage /app/bootstrap/cache
 chmod -R 775 /app/storage /app/bootstrap/cache
