@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KeuanganController;
@@ -26,6 +27,11 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1')->name('login.post');
 });
+
+// Endpoint Cron Webhook Eksternal (mis. cron-job.org)
+Route::post('/internal/cron/reminder', [CronController::class, 'reminder'])
+    ->middleware('throttle:10,1')
+    ->name('cron.reminder');
 
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
