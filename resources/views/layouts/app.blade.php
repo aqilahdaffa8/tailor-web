@@ -92,7 +92,8 @@
                     <span>Pengukuran</span>
                 </a>
 
-                <!-- 6. Inventory -->
+                <!-- 6. Inventory (Disembunyikan sesuai Opsi A) -->
+                {{--
                 <a href="{{ route('inventory.index') }}" 
                    class="group flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors {{ request()->routeIs('inventory.*') ? 'bg-zinc-800 text-white font-semibold shadow-2xs' : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60' }}">
                     <svg class="w-5 h-5 {{ request()->routeIs('inventory.*') ? 'text-white' : 'text-zinc-400 group-hover:text-zinc-200' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,6 +101,7 @@
                     </svg>
                     <span>Inventory Bahan</span>
                 </a>
+                --}}
 
                 <!-- 7. Keuangan -->
                 <a href="{{ route('keuangan.index') }}" 

@@ -61,6 +61,14 @@ class PengaturanController extends Controller
             ->with('success', 'Kategori pola berhasil ditambahkan.');
     }
 
+    public function updateKategoriPola(StoreKategoriRequest $request, int $id): RedirectResponse
+    {
+        $this->masterDataService->updateKategoriPola($id, $request->validated());
+
+        return redirect()->route('pengaturan.index', ['tab' => 'pola'])
+            ->with('success', 'Kategori pola berhasil diperbarui.');
+    }
+
     public function deleteKategoriPola(int $id): RedirectResponse
     {
         $this->masterDataService->deleteKategoriPola($id);
@@ -75,6 +83,14 @@ class PengaturanController extends Controller
 
         return redirect()->route('pengaturan.index', ['tab' => 'bahan'])
             ->with('success', 'Kategori bahan berhasil ditambahkan.');
+    }
+
+    public function updateKategoriBahan(StoreKategoriRequest $request, int $id): RedirectResponse
+    {
+        $this->masterDataService->updateKategoriBahan($id, $request->validated());
+
+        return redirect()->route('pengaturan.index', ['tab' => 'bahan'])
+            ->with('success', 'Kategori bahan berhasil diperbarui.');
     }
 
     public function deleteKategoriBahan(int $id): RedirectResponse
@@ -93,6 +109,14 @@ class PengaturanController extends Controller
             ->with('success', 'Kategori pengeluaran berhasil ditambahkan.');
     }
 
+    public function updateKategoriPengeluaran(StoreKategoriRequest $request, int $id): RedirectResponse
+    {
+        $this->masterDataService->updateKategoriPengeluaran($id, $request->validated());
+
+        return redirect()->route('pengaturan.index', ['tab' => 'pengeluaran'])
+            ->with('success', 'Kategori pengeluaran berhasil diperbarui.');
+    }
+
     public function deleteKategoriPengeluaran(int $id): RedirectResponse
     {
         $this->masterDataService->deleteKategoriPengeluaran($id);
@@ -107,6 +131,14 @@ class PengaturanController extends Controller
 
         return redirect()->route('pengaturan.index', ['tab' => 'tutorial'])
             ->with('success', 'Kategori tutorial berhasil ditambahkan.');
+    }
+
+    public function updateKategoriTutorial(StoreKategoriRequest $request, int $id): RedirectResponse
+    {
+        $this->masterDataService->updateKategoriTutorial($id, $request->validated());
+
+        return redirect()->route('pengaturan.index', ['tab' => 'tutorial'])
+            ->with('success', 'Kategori tutorial berhasil diperbarui.');
     }
 
     public function deleteKategoriTutorial(int $id): RedirectResponse

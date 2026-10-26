@@ -107,6 +107,13 @@ class MasterDataService
         return KategoriPola::create($data);
     }
 
+    public function updateKategoriPola(int $id, array $data): bool
+    {
+        $kategori = KategoriPola::findOrFail($id);
+
+        return $kategori->update($data);
+    }
+
     public function deleteKategoriPola(int $id): bool
     {
         return (bool) KategoriPola::destroy($id);
@@ -121,6 +128,13 @@ class MasterDataService
     public function createKategoriBahan(array $data): KategoriBahan
     {
         return KategoriBahan::create($data);
+    }
+
+    public function updateKategoriBahan(int $id, array $data): bool
+    {
+        $kategori = KategoriBahan::findOrFail($id);
+
+        return $kategori->update($data);
     }
 
     public function deleteKategoriBahan(int $id): bool
@@ -139,6 +153,13 @@ class MasterDataService
         return KategoriPengeluaran::create($data);
     }
 
+    public function updateKategoriPengeluaran(int $id, array $data): bool
+    {
+        $kategori = KategoriPengeluaran::findOrFail($id);
+
+        return $kategori->update($data);
+    }
+
     public function deleteKategoriPengeluaran(int $id): bool
     {
         return (bool) KategoriPengeluaran::destroy($id);
@@ -153,6 +174,13 @@ class MasterDataService
     public function createKategoriTutorial(array $data): KategoriTutorial
     {
         return KategoriTutorial::create($data);
+    }
+
+    public function updateKategoriTutorial(int $id, array $data): bool
+    {
+        $kategori = KategoriTutorial::findOrFail($id);
+
+        return $kategori->update($data);
     }
 
     public function deleteKategoriTutorial(int $id): bool

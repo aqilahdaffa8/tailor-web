@@ -45,15 +45,19 @@ Route::middleware('auth')->group(function () {
         Route::delete('/jasa/{jenisJasa}', [PengaturanController::class, 'deleteJenisJasa'])->name('jasa.destroy');
 
         Route::post('/kategori-pola', [PengaturanController::class, 'storeKategoriPola'])->name('pola.store');
+        Route::put('/kategori-pola/{id}', [PengaturanController::class, 'updateKategoriPola'])->name('pola.update');
         Route::delete('/kategori-pola/{id}', [PengaturanController::class, 'deleteKategoriPola'])->name('pola.destroy');
 
         Route::post('/kategori-bahan', [PengaturanController::class, 'storeKategoriBahan'])->name('bahan.store');
+        Route::put('/kategori-bahan/{id}', [PengaturanController::class, 'updateKategoriBahan'])->name('bahan.update');
         Route::delete('/kategori-bahan/{id}', [PengaturanController::class, 'deleteKategoriBahan'])->name('bahan.destroy');
 
         Route::post('/kategori-pengeluaran', [PengaturanController::class, 'storeKategoriPengeluaran'])->name('pengeluaran.store');
+        Route::put('/kategori-pengeluaran/{id}', [PengaturanController::class, 'updateKategoriPengeluaran'])->name('pengeluaran.update');
         Route::delete('/kategori-pengeluaran/{id}', [PengaturanController::class, 'deleteKategoriPengeluaran'])->name('pengeluaran.destroy');
 
         Route::post('/kategori-tutorial', [PengaturanController::class, 'storeKategoriTutorial'])->name('tutorial.store');
+        Route::put('/kategori-tutorial/{id}', [PengaturanController::class, 'updateKategoriTutorial'])->name('tutorial.update');
         Route::delete('/kategori-tutorial/{id}', [PengaturanController::class, 'deleteKategoriTutorial'])->name('tutorial.destroy');
 
         Route::put('/profil', [PengaturanController::class, 'updateProfil'])->name('profil.update');

@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\JenisJasa;
+use App\Models\KategoriPengeluaran;
+use App\Models\KategoriPola;
 use App\Models\KategoriTutorial;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -166,6 +168,37 @@ class PengaturanTest extends TestCase
         $deleteResponse = $this->actingAs($this->user)->delete('/pengaturan/kategori-tutorial/'.$kat->id);
         $deleteResponse->assertRedirect('/pengaturan?tab=tutorial');
         $this->assertDatabaseMissing('kategori_tutorial', ['id' => $kat->id]);
+    }
+
+    /**
+     * Web: Update Kategori Pola, Pengeluaran, dan Tutorial
+     */
+    public function test_web_update_kategori_kategori(): void
+    {
+        $pola = KategoriPola::create(['nama_kategori' => 'Pola Lama']);
+        $pengeluaran = KategoriPengeluaran::create(['nama_kategori' => 'Pengeluaran Lama']);
+        $tutorial = KategoriTutorial::create(['nama_kategori' => 'Tutorial Lama']);
+
+        // Update Pola
+        $respPola = $this->actingAs($this->user)->put('/pengaturan/kategori-pola/'.$pola->id, [
+            'nama_kategori' => 'Pola Baru',
+        ]);
+        $respPola->assertRedirect('/pengaturan?tab=pola');
+        $this->assertDatabaseHas('kategori_pola', ['id' => $pola->id, 'nama_kategori' => 'Pola Baru']);
+
+        // Update Pengeluaran
+        $respPengeluaran = $this->actingAs($this->user)->put('/pengaturan/kategori-pengeluaran/'.$pengeluaran->id, [
+            'nama_kategori' => 'Pengeluaran Baru',
+        ]);
+        $respPengeluaran->assertRedirect('/pengaturan?tab=pengeluaran');
+        $this->assertDatabaseHas('kategori_pengeluaran', ['id' => $pengeluaran->id, 'nama_kategori' => 'Pengeluaran Baru']);
+
+        // Update Tutorial
+        $respTutorial = $this->actingAs($this->user)->put('/pengaturan/kategori-tutorial/'.$tutorial->id, [
+            'nama_kategori' => 'Tutorial Baru',
+        ]);
+        $respTutorial->assertRedirect('/pengaturan?tab=tutorial');
+        $this->assertDatabaseHas('kategori_tutorial', ['id' => $tutorial->id, 'nama_kategori' => 'Tutorial Baru']);
     }
 
     /**
