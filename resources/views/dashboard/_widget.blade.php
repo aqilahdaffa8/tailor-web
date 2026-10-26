@@ -8,20 +8,20 @@
     $angkaStok = fn ($nilai) => rtrim(rtrim(number_format((float) $nilai, 2, ',', '.'), '0'), ',');
 @endphp
 
-{{-- Baris 1: kartu status pesanan & stok (2 kolom 2 baris di HP, 4 kolom di desktop) --}}
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+{{-- Baris 1: kartu status pesanan (di HP: Pesanan Aktif full width, 2 card peringatan berjajar 2 kolom; di desktop: 3 kolom sejajar) --}}
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
     <a href="{{ route('pesanan.index', ['status' => 'aktif']) }}"
-       class="block bg-white rounded-xl sm:rounded-2xl p-3.5 sm:p-6 border border-zinc-200 transition-colors hover:border-zinc-300 shadow-2xs">
+       class="col-span-2 md:col-span-1 block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-zinc-200 transition-colors hover:border-zinc-300 shadow-2xs">
         <div class="flex items-center justify-between">
-            <span class="text-[11px] sm:text-xs font-medium text-zinc-500 leading-tight">Pesanan Aktif</span>
-            <span class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-zinc-100 text-zinc-700 shrink-0">
+            <span class="text-xs font-medium text-zinc-500 leading-tight">Pesanan Aktif</span>
+            <span class="p-2 rounded-xl bg-zinc-100 text-zinc-700 shrink-0">
                 <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
             </span>
         </div>
-        <p class="mt-2.5 sm:mt-5 text-xl sm:text-3xl font-bold tracking-tight text-zinc-900 tabular-nums">{{ $ringkasan['pesanan_aktif'] }}</p>
-        <p class="mt-0.5 sm:mt-1.5 text-[10px] sm:text-xs text-zinc-500 truncate">Sedang dalam pengerjaan</p>
+        <p class="mt-3 sm:mt-5 text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 tabular-nums">{{ $ringkasan['pesanan_aktif'] }}</p>
+        <p class="mt-1 sm:mt-1.5 text-xs text-zinc-500 truncate">Sedang dalam pengerjaan</p>
     </a>
 
     <a href="{{ route('pesanan.index', ['deadline' => 'mendekati']) }}"
@@ -50,20 +50,6 @@
         </div>
         <p class="mt-2.5 sm:mt-5 text-xl sm:text-3xl font-bold tracking-tight {{ $ringkasan['pesanan_terlambat'] > 0 ? 'text-rose-600' : 'text-zinc-900' }} tabular-nums">{{ $ringkasan['pesanan_terlambat'] }}</p>
         <p class="mt-0.5 sm:mt-1.5 text-[10px] sm:text-xs text-rose-600 font-medium truncate">Melewati deadline</p>
-    </a>
-
-    <a href="{{ route('inventory.index', ['tab' => 'bahan', 'menipis' => 1]) }}"
-       class="block bg-white rounded-xl sm:rounded-2xl p-3.5 sm:p-6 border border-zinc-200 transition-colors hover:border-zinc-300 shadow-2xs">
-        <div class="flex items-center justify-between">
-            <span class="text-[11px] sm:text-xs font-medium text-zinc-500 leading-tight">Stok Menipis</span>
-            <span class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-zinc-100 text-zinc-700 shrink-0">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                </svg>
-            </span>
-        </div>
-        <p class="mt-2.5 sm:mt-5 text-xl sm:text-3xl font-bold tracking-tight text-zinc-900 tabular-nums">{{ $ringkasan['stok_menipis'] }}</p>
-        <p class="mt-0.5 sm:mt-1.5 text-[10px] sm:text-xs text-zinc-500 truncate">Perlu restock bahan</p>
     </a>
 </div>
 
@@ -120,7 +106,7 @@
 </div>
 
 {{-- Baris 3: daftar singkat --}}
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
     {{-- Pesanan terlambat --}}
     <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-2xs">
         <div class="px-6 py-4 border-b border-zinc-100 flex items-center justify-between">
@@ -166,30 +152,6 @@
                 </a>
             @empty
                 <p class="py-8 text-center text-xs text-zinc-400">Tidak ada deadline dalam 3 hari ke depan.</p>
-            @endforelse
-        </div>
-    </div>
-
-    {{-- Stok menipis --}}
-    <div class="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-2xs">
-        <div class="px-6 py-4 border-b border-zinc-100 flex items-center justify-between">
-            <h3 class="font-semibold text-sm text-zinc-900">Stok Bahan Menipis</h3>
-            <a href="{{ route('inventory.index', ['tab' => 'bahan', 'menipis' => 1]) }}" class="text-xs font-medium text-zinc-600 hover:text-zinc-900 hover:underline">Lihat semua</a>
-        </div>
-        <div class="px-6 divide-y divide-zinc-100">
-            @forelse($stokMenipis as $bahan)
-                <a href="{{ route('inventory.index', ['tab' => 'bahan', 'search' => $bahan->nama_bahan]) }}"
-                   class="flex items-center justify-between gap-4 py-3.5 group">
-                    <div class="min-w-0">
-                        <p class="text-sm font-semibold text-zinc-900 group-hover:text-zinc-700 transition-colors truncate">{{ $bahan->nama_bahan }}</p>
-                        <p class="text-xs text-zinc-500 mt-0.5">Minimum {{ $angkaStok($bahan->stok_minimum) }} {{ $bahan->satuan }}</p>
-                    </div>
-                    <span class="text-xs font-semibold text-zinc-900 whitespace-nowrap tabular-nums">
-                        {{ $angkaStok($bahan->stok) }} {{ $bahan->satuan }}
-                    </span>
-                </a>
-            @empty
-                <p class="py-8 text-center text-xs text-zinc-400">Semua stok bahan masih aman.</p>
             @endforelse
         </div>
     </div>

@@ -138,7 +138,6 @@ class DashboardTest extends PesananTestCase
             ->assertSee('Pesanan Terlambat')
             ->assertSee('Belum Lunas')
             ->assertSee('Pendapatan vs Pengeluaran')
-            ->assertSee('Stok Bahan Menipis')
             ->assertSee($this->service()->ringkasan()['periode']['label'])
             ->assertSee($terlambat->nomor_pesanan)
             ->assertSee($mendekati->nomor_pesanan)
@@ -154,8 +153,7 @@ class DashboardTest extends PesananTestCase
             ->assertSee(route('pesanan.index', ['status' => 'aktif']))
             ->assertSee(route('pesanan.index', ['deadline' => 'terlambat']))
             ->assertSee(route('pesanan.index', ['deadline' => 'mendekati']))
-            ->assertSee(route('pesanan.index', ['pembayaran' => 'belum_lunas']))
-            ->assertSee(route('inventory.index', ['tab' => 'bahan', 'menipis' => 1]));
+            ->assertSee(route('pesanan.index', ['pembayaran' => 'belum_lunas']));
     }
 
     public function test_permintaan_ajax_hanya_mengembalikan_potongan_widget(): void
@@ -164,7 +162,6 @@ class DashboardTest extends PesananTestCase
             ->get('/dashboard', ['X-Requested-With' => 'XMLHttpRequest'])
             ->assertStatus(200)
             ->assertSee('Pesanan Aktif')
-            ->assertSee('Stok Bahan Menipis')
             ->assertDontSee('Ruang Kerja Atelier')
             ->assertDontSee('<html', false);
     }
@@ -188,7 +185,6 @@ class DashboardTest extends PesananTestCase
 
         $this->assertStringContainsString('Tidak ada pesanan yang terlambat.', $html);
         $this->assertStringContainsString('Tidak ada deadline dalam 3 hari ke depan.', $html);
-        $this->assertStringContainsString('Semua stok bahan masih aman.', $html);
         $this->assertStringContainsString('Rp 0', $html);
     }
 
