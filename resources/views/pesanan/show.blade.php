@@ -190,7 +190,8 @@
                             </ol>
                         </div>
 
-                        {{-- Pemakaian bahan --}}
+                        {{-- Pemakaian bahan (UI disembunyikan) --}}
+                        {{--
                         <div class="px-6 py-6 border-t border-zinc-200">
                             <h4 class="text-xs font-semibold text-zinc-900 uppercase tracking-wider mb-4">Pemakaian Bahan</h4>
 
@@ -250,6 +251,7 @@
                                 </form>
                             @endunless
                         </div>
+                        --}}
 
                         {{-- Foto referensi --}}
                         <div class="px-6 py-6 border-t border-zinc-200">

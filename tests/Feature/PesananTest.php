@@ -249,7 +249,6 @@ class PesananTest extends PesananTestCase
             ->assertSee('Gaun pesta uji')
             ->assertSee('Progress Pengerjaan')
             ->assertSee($namaTahap)
-            ->assertSee('Pemakaian Bahan')
             ->assertSee('Foto Referensi')
             ->assertSee('Ringkasan Pembayaran')
             ->assertSee('Rp 100.000')

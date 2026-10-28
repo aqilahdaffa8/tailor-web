@@ -15,7 +15,7 @@
                     Selamat Datang, {{ auth()->user()->name }}!
                 </h2>
                 <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-zinc-500 max-w-xl leading-relaxed">
-                    Pantau pesanan, pembayaran, dan stok bahan Anda dalam satu tampilan. Data diperbarui otomatis setiap satu menit.
+                    Pantau pesanan dan pembayaran Anda dalam satu tampilan. Data diperbarui otomatis setiap satu menit.
                 </p>
             </div>
 
